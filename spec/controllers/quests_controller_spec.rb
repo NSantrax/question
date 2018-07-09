@@ -3,9 +3,10 @@ require 'rails_helper'
 RSpec.describe QuestsController, type: :controller do
 
   let(:quests) {create_list(:quest, 2)}
-  before { get :index }
+  
   
   describe 'GET #index' do
+    before { get :index }
     it 'populates an array of all questions' do
       expect(assigns(:quests)).to match_array(quests)
     end
@@ -54,7 +55,6 @@ RSpec.describe QuestsController, type: :controller do
         post :create, params: {quest: attributes_for(:invalid_quest)}
         expect(response).to render_template :new
       end
-      
     end
   end
 end
