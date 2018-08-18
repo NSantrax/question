@@ -1,16 +1,18 @@
-= form_for @quest do |f|
+h1 Редактировать вопрос
+
+= form_for(@quest) do |f| 
   - if @quest.errors.any?
     div id="error_explanation"
       h2= pluralize(@quest.errors.count, "error prohibited this quest from being saved:") 
-     
+      
       ul
       -@quest.errors.full_messages.each do |message| 
          li= message
-  = f.label :title
-  = f.text_field :title
+  = f.label :title 
+  = f.text_field :title, id: :quest_title
   = f.label :body
-  = f.text_area :body
-  = f.submit 'Create'
-  
-  = link_to 'Назад', quests_path
+  = f.text_field :body, id: :quest_body
 
+  = f.submit 'Изменить'
+
+= link_to 'Назад', quests_path

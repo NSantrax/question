@@ -1,3 +1,5 @@
+h1 Редактировать ответ
+
 = form_for [@quest, @answer.becomes(Answer)] do |f|
   - if @answer.errors.any?
     div id="error_explanation"
@@ -8,6 +10,6 @@
          li= message
   = f.label :body
   = f.text_area :body
-  = f.submit 'Create'
-  
-  = link_to 'Назад', quests_path
+  = f.submit 'Update'
+
+= link_to 'Назад', quests_path

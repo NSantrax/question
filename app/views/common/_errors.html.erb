@@ -1,0 +1,13 @@
+
+  <% if resourse.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= t('common.errors') %> </h2>
+
+      <ul>
+      <% resourse.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+

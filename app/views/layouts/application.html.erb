@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Question</title>
+    <title>Questions</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -10,6 +10,15 @@
   </head>
 
   <body>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+
+     <% if user_signed_in? %>
+      <%= link_to 'Выйти', destroy_user_session_path, method: :delete %>
+      <% else %>
+      <%= link_to 'Войти', new_user_session_path %>
+     <% end %>
     <%= yield %>
+    
   </body>
 </html>
