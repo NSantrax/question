@@ -27,6 +27,7 @@ RSpec.describe QuestsController, type: :controller do
   end
   
    describe 'GET #new' do
+     user_sign_in
      
      before {get :new}
     it 'assigns a new Quest to @quest' do
@@ -38,6 +39,8 @@ RSpec.describe QuestsController, type: :controller do
   end
   
   describe 'POST #create' do
+    user_sign_in
+    
     context 'with valid attribut' do
       it 'save a new quest in database' do
         expect {post :create, params: {quest: attributes_for(:quest)}}.to change(Quest, :count).by(1)
