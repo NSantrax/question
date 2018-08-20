@@ -4,13 +4,9 @@ feature 'User can create question', %q{
   the user can create a question
   to get an answer from the community
 } do
+  given(:user) { create(:user)}
   scenario 'User can create qestion' do
-    User.create!(email:'user@test.com', password: '1234567')
-    visit new_user_session_path
-
-    fill_in 'Email', with: 'user@test.com'
-    fill_in 'Password', with: '1234567'
-    click_on 'Log in'
+   sign_in(user)
     
     visit quests_path
 
@@ -24,12 +20,7 @@ feature 'User can create question', %q{
  
   end
   scenario 'User cannot create invalid qestion' do
-   User.create!(email:'user@test.com', password: '1234567')
-    visit new_user_session_path
-
-    fill_in 'Email', with: 'user@test.com'
-    fill_in 'Password', with: '1234567'
-    click_on 'Log in'
+   sign_in(user)
      
    visit quests_path
  

@@ -3,14 +3,10 @@ require 'rails_helper'
 feature 'User can create answer', %q{
   the user can create a answer
 } do
+  given(:user) { create(:user)}
   scenario 'Uer can create answer' do
  
-    User.create!(email:'user@test.com', password: '1234567')
-    visit new_user_session_path
-
-    fill_in 'Email', with: 'user@test.com'
-    fill_in 'Password', with: '1234567'
-    click_on 'Log in'
+    sign_in(user)
     
     Quest.create!(title:'title', body: 'text 1234567')
     visit quests_path
@@ -25,11 +21,7 @@ feature 'User can create answer', %q{
   end
   scenario 'User cannot create invalid answer' do
    
-    User.create!(email:'user@test.com', password: '1234567')
-    visit new_user_session_path
-    fill_in 'Email', with: 'user@test.com'
-    fill_in 'Password', with: '1234567'
-    click_on 'Log in'
+   sign_in(user)
     
     Quest.create!(title:'title', body: 'text 1234567')
     visit quests_path
