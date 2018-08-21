@@ -16,7 +16,7 @@ feature 'User can create question', %q{
     fill_in 'Body', with: 'Test text'
       
     click_on 'Create'
-    expect(page).to have_content 'Qestion'
+    expect(page).to have_content 'Question'
  
   end
   scenario 'User cannot create invalid qestion' do
