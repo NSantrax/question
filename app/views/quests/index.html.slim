@@ -1,0 +1,16 @@
+<h1>Список записей </h1>
+
+ -@quests.reverse.each do |q| 
+    p= q.title
+    p= q.body 
+    p= link_to 'Показать вопрос', q
+    p= link_to 'Удалить', q, method: :delete, data: { confirm: 'Вы уверены?' } 
+    p= link_to 'Give an answer', new_quest_answer_path(q)
+    
+    <h3> Answers: </h3> 
+    - q.answers.each do |answer|
+      p= answer.body
+     
+
+ p= link_to 'Ask question', new_quest_path 
+

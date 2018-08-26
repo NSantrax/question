@@ -3,7 +3,9 @@ require 'rails_helper'
 RSpec.describe AnswersController, type: :controller do
   let(:quest) {create(:quest)}
   
+ 
   describe 'GET #new' do
+     user_sign_in
      before {get :new, params:{quest_id: quest}}
      it 'assigns a new Answer to @answer' do
        expect(assigns(:answer)).to be_a_new(Answer)
@@ -14,6 +16,7 @@ RSpec.describe AnswersController, type: :controller do
   end
   
   describe 'POST #create' do
+    user_sign_in
     context 'with valid attribut' do
       it 'save a new answer in database' do
         expect {post :create, params: {quest_id: quest, answer: attributes_for(:answer)}}.to change(Answer, :count).by(1)
