@@ -7,6 +7,7 @@ class QuestsController < ApplicationController
  end
  
  def show
+   @answer=@quest.answers.build
  end
  
  def new
