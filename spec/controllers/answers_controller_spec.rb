@@ -3,18 +3,6 @@ require 'rails_helper'
 RSpec.describe AnswersController, type: :controller do
   let(:quest) {create(:quest)}
   
- 
-  describe 'GET #new' do
-     user_sign_in
-     before {get :new, params:{quest_id: quest}}
-     it 'assigns a new Answer to @answer' do
-       expect(assigns(:answer)).to be_a_new(Answer)
-    end
-    it 'renders new view' do
-      expect(response).to render_template :new
-    end
-  end
-  
   describe 'POST #create' do
     user_sign_in
     context 'with valid attribut' do
@@ -32,7 +20,7 @@ RSpec.describe AnswersController, type: :controller do
       end
       it 're_redirects to show view' do
         post :create, params: {quest_id: quest, answer: attributes_for(:invalid_answer)}
-        expect(response).to render_template :new
+        expect(response).to redirect_to quest_path(assigns(:quest))
       end
     end
   end

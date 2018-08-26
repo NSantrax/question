@@ -3,16 +3,13 @@ class AnswersController < ApplicationController
   before_action :load_quest, only: [:new, :create, :edit, :update, :destroy]
   before_action :load_answer, only: [:edit, :show, :update, :destroy]
  
- def new
-   @answer = Answer.new
- end
  
  def create
-   @answer = @quest.answers.new(answer_params)
+   @quest = Quest.find(params[:quest_id])
+   @answer = @quest.answers.create(answer_params)
    if @answer.save
-     redirect_to @quest, notice: 'Ответ сохранен'
-   else
-     render :new
+     redirect_to quest_path(@answer.quest), notice: 'Ответ сохранен'
+     else redirect_to quest_path(@answer.quest), notice: 'Ответ не сохранен'
    end
  end
  
@@ -43,6 +40,6 @@ class AnswersController < ApplicationController
   end
   
   def answer_params
-  	params.require(:answer).permit(:quest_id, :body)
+  	params.require(:answer).permit(:body)
   end
 end

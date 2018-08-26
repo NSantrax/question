@@ -21,6 +21,11 @@ RSpec.describe QuestsController, type: :controller do
     it 'assigns to requested quest to @quest' do
       expect(assigns(:quest)).to eq quest
     end
+    
+    it 'assigns new answer for quest' do
+      expect(assigns(:answer)).to be_a_new(Answer)
+    end
+    
     it 'renders show view' do
       expect(response).to render_template :show
     end
