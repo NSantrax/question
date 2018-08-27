@@ -18,6 +18,7 @@ RSpec.describe AnswersController, type: :controller do
        it 'not save the quest' do
         expect {post :create, params: {quest_id: quest, answer: attributes_for(:invalid_answer)}}.to_not change(Answer, :count)
       end
+      
       it 're_redirects to show view' do
         post :create, params: {quest_id: quest, answer: attributes_for(:invalid_answer)}
         expect(response).to redirect_to quest_path(assigns(:quest))
