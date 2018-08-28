@@ -9,6 +9,7 @@ RSpec.describe AnswersController, type: :controller do
       it 'save a new answer in database' do
         expect {post :create, params: {quest_id: quest, answer: attributes_for(:answer)}}.to change(Answer, :count).by(1)
       end
+      
       it 'redirects to show view' do
         post :create, params: {quest_id: quest.id, answer: attributes_for(:answer)}
         expect(response).to redirect_to quest_path(assigns(:quest))
