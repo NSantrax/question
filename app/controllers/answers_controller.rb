@@ -7,10 +7,6 @@ class AnswersController < ApplicationController
  def create
    @quest = Quest.find(params[:quest_id])
    @answer = @quest.answers.create(answer_params)
-   if @answer.save
-     redirect_to quest_path(@answer.quest), notice: 'Ответ сохранен'
-     else redirect_to quest_path(@answer.quest), notice: 'Ответ не сохранен'
-   end
  end
  
  def edit

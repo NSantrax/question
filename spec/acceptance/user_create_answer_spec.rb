@@ -4,11 +4,9 @@ feature 'User can create answer', %q{
   The user can create a answer
 } do
   given(:user) { create(:user)}
-  given(:quest) { create(:quest)}
-  scenario 'Authenticated user can create answer' do
- 
+  given!(:quest) { create(:quest)}
+  scenario 'Authenticated user can create answer', js: true do
     sign_in(user)
-    
     visit quest_path(quest)
   
     fill_in 'You answer', with: 'My answer'
@@ -18,24 +16,21 @@ feature 'User can create answer', %q{
       expect(page).to have_content 'My answer'
     end
   end
-  scenario 'Authenticated user cannot create invalid answer' do
-   
-   sign_in(user)
-    
+  
+  scenario 'Authenticated user can create invalid answer', js: true do
+    sign_in(user)
     visit quest_path(quest)
     click_on 'Create'
-    expect(page).to have_content "Ответ не сохранен"
- 
+   
+      expect(page).to have_content "Body can't be blank"
+   
   end
   
    scenario 'Non-authenticated user cannot create answer' do
-    
-    Quest.create!(title:'title', body: 'text 1234567')
    
-    visit quests_path
-    click_on 'Give an answer'
+    visit quest_path(quest)
   
-    expect(page).to have_content "You need to sign in or sign up before continuing."
+    expect(page).to_not have_content "Create"
  
    end
 end

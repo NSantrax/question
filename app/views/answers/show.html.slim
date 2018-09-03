@@ -1,6 +1,0 @@
-<h1> Answer </h1>
-    = link_to 'Назад', quests_path
-   
-    p= @answer.body
-    p= link_to 'Редактировать ответ', edit_quest_answer_path(@answer)
-    p= link_to 'Удалить ответ', @answer, method: :delete, data: { confirm: 'Вы уверены?' }
