@@ -5,7 +5,7 @@
     p= q.body 
     p= link_to 'Показать вопрос', q
     p= link_to 'Удалить', q, method: :delete, data: { confirm: 'Вы уверены?' } 
-    p= link_to 'Give an answer', new_quest_answer_path(q)
+    
     
     <h3> Answers: </h3> 
     - q.answers.each do |answer|
