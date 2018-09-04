@@ -12,17 +12,17 @@ RSpec.describe AnswersController, type: :controller do
       
       it 'render create template' do
         post :create, params: {quest_id: quest.id, answer: attributes_for(:answer)}, format: :js
-        expect(response).to render_template 
+        expect(response).to render_template :create
       end
     end 
-     context 'with invalid attribut' do
-       it 'not save the quest' do
+    context 'with invalid attribut' do
+      it 'not save the quest' do
         expect {post :create, params: {quest_id: quest, answer: attributes_for(:invalid_answer)}, format: :js}.to_not change(Answer, :count)
       end
       
       it 'render create template' do
         post :create, params: {quest_id: quest, answer: attributes_for(:invalid_answer)}, format: :js
-        expect(response).to render_template
+        expect(response).to render_template :create
       end
     end
   end
