@@ -1,4 +1,4 @@
-require 'rails_helper' 
+require_relative 'acceptance_helper' 
 
 feature 'User can create answer', %q{
   The user can create a answer
@@ -22,7 +22,7 @@ feature 'User can create answer', %q{
     visit quest_path(quest)
     click_on 'Create'
    
-      expect(page).to have_content "Body can't be blank"
+      expect(page).to have_content "Body is too short"
    
   end
   
