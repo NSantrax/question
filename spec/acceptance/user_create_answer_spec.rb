@@ -13,7 +13,7 @@ feature 'User can create answer', %q{
     click_on 'Create'
     expect(current_path).to eq quest_path(quest)
     within '.answers' do
-      expect(page).to have_content 'My answer'
+    expect(page).to have_content 'My answer'
     end
   end
   
@@ -22,15 +22,12 @@ feature 'User can create answer', %q{
     visit quest_path(quest)
     click_on 'Create'
    
-      expect(page).to have_content "Body is too short"
+    expect(page).to have_content "Body is too short"
    
   end
   
    scenario 'Non-authenticated user cannot create answer' do
-   
-    visit quest_path(quest)
-  
-    expect(page).to_not have_content "Create"
- 
+     visit quest_path(quest)
+     expect(page).to_not have_content "Create"
    end
 end
