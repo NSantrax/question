@@ -1,45 +1,36 @@
 require 'rails_helper' 
 
 feature 'User can create answer', %q{
-  the user can create a answer
+  The user can create a answer
 } do
   given(:user) { create(:user)}
-  scenario 'Uer can create answer' do
- 
+  given!(:quest) { create(:quest)}
+  scenario 'Authenticated user can create answer', js: true do
     sign_in(user)
-    
-    Quest.create!(title:'title', body: 'text 1234567')
-    visit quests_path
-    
-    click_on 'Give an answer'
+    visit quest_path(quest)
   
-    fill_in 'Body', with: 'Test text'
-      
+    fill_in 'You answer', with: 'My answer'
     click_on 'Create'
-    expect(page).to have_content 'Ответ сохранен'
- 
+    expect(current_path).to eq quest_path(quest)
+    within '.answers' do
+      expect(page).to have_content 'My answer'
+    end
   end
-  scenario 'User cannot create invalid answer' do
-   
-   sign_in(user)
-    
-    Quest.create!(title:'title', body: 'text 1234567')
-    visit quests_path
-    
-    click_on 'Give an answer'
+  
+  scenario 'Authenticated user can create invalid answer', js: true do
+    sign_in(user)
+    visit quest_path(quest)
     click_on 'Create'
-    expect(page).to have_content "Body can't be blank"
- 
+   
+      expect(page).to have_content "Body can't be blank"
+   
   end
   
    scenario 'Non-authenticated user cannot create answer' do
-    
-    Quest.create!(title:'title', body: 'text 1234567')
    
-    visit quests_path
-    click_on 'Give an answer'
+    visit quest_path(quest)
   
-    expect(page).to have_content "You need to sign in or sign up before continuing."
+    expect(page).to_not have_content "Create"
  
    end
 end

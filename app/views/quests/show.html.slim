@@ -4,13 +4,12 @@
     p= @quest.body
     p= link_to 'Изменить вопрос', edit_quest_path(@quest)
     p= link_to 'Удалить вопрос', @quest, method: :delete, data: { confirm: 'Вы уверены?' } 
-    p= link_to 'Give an answer', new_quest_answer_path(@quest)
-    <h3> Answers: </h3> 
-    - @quest.answers.each do |answer|
-      p= answer.body
-      p= link_to 'Показать ответ', answer
-      p= link_to 'Удалить ответ', answer, method: :delete, data: { confirm: 'Вы уверены?' }
-    
-
-      
+   
+.answers
+  = render 'answers'
+-if user_signed_in?  
+  = form_for [@quest, @answer], remote: true do |f|
+    = f.label :body, 'You answer'
+    = f.text_area :body
+    = f.submit 'Create'
  
