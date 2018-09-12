@@ -1,23 +1,16 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!,  only: [:new, :create, :edit, :update, :destroy]
-  before_action :load_quest, only: [:new, :create, :edit, :update, :destroy]
-  before_action :load_answer, only: [:edit, :show, :update, :destroy]
  
- 
- def create
-   @quest = Quest.find(params[:quest_id])
-   @answer = @quest.answers.create(answer_params)
- end
- 
- def edit
- end
+  def create
+    @quest = Quest.find(params[:quest_id])
+    @answer = @quest.answers.new(answer_params)
+    @answer.user = current_user
+    @answer.save
+  end
   
   def update
-      if @quest.answers.update(answer_params)
-        redirect_to quests_path, notice: 'Ответ изменен'
-      else
-        render :edit
-      end
+     @answer = Answer.find(params[:id])
+     @answer.update (answer_params)
   end
 
   def destroy
@@ -27,15 +20,8 @@ class AnswersController < ApplicationController
  
   private
 
-  def load_quest
-    @quest = Quest.find(params[:quest_id])
-  end
-  
-  def load_answer
-    @answer = Answer.find(params[:answer_id])
-  end
-  
+
   def answer_params
-  	params.require(:answer).permit(:body)
+  	params.require(:answer).permit(:body, :user)
   end
 end

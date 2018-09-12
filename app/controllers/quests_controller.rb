@@ -16,6 +16,7 @@ class QuestsController < ApplicationController
  
  def create
    @quest = Quest.new(quest_params)
+   @quest.user = current_user
    if @quest.save
      redirect_to @quest, notice: 'Вопрос сохранен'
    else
@@ -46,6 +47,6 @@ class QuestsController < ApplicationController
   end
 
   def quest_params
-  	params.require(:quest).permit(:title, :body)
+  	params.require(:quest).permit(:title, :body, :user)
   end
 end

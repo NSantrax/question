@@ -1,6 +1,7 @@
 class Answer < ApplicationRecord
   
   belongs_to :quest
+  belongs_to :user
   
   validates :body, presence: true
   validates :quest_id, presence: true

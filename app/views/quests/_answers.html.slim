@@ -1,2 +1,4 @@
 - @quest.answers.each do |answer|
     p= answer.body
+    -if user_signed_in?
+        p= link_to 'Edit'
