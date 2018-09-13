@@ -15,8 +15,7 @@ class QuestsController < ApplicationController
  end
  
  def create
-   @quest = Quest.new(quest_params)
-   @quest.user = current_user
+   @quest = Quest.new(quest_params.merge(user: current_user))
    if @quest.save
      redirect_to @quest, notice: 'Вопрос сохранен'
    else
