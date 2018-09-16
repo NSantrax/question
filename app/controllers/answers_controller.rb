@@ -9,6 +9,7 @@ class AnswersController < ApplicationController
   def update
      @answer = Answer.find(params[:id])
      @answer.update(answer_params)
+     @quest = @answer.quest
   end
 
   def destroy

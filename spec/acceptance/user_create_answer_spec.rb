@@ -4,7 +4,7 @@ feature 'User can create answer', %q{
   The user can create a answer
 } do
   given(:user) { create(:user)}
-  given!(:quest) { create(:quest)}
+  given!(:quest) { create(:quest, user: user)}
   scenario 'Authenticated user can create answer', js: true do
     sign_in(user)
     visit quest_path(quest)
