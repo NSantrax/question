@@ -3,9 +3,23 @@
     p= @quest.title
     p= @quest.body
     -if current_user == @quest.user
-      p= link_to 'Изменить вопрос', edit_quest_path(@quest)
+      p= link_to 'Edit','', class: 'edit-quest-link', data: {quest_id: @quest.id}
+      = form_for [@quest], remote: true, html: {id: "edit-quest-#{@quest.id}"} do |f|
+        - if @quest.errors.any?
+          div id="error_explanation"
+          h2= pluralize(@quest.errors.count, "error prohibited this quest from being saved:") 
+           ul
+          -@quest.errors.full_messages.each do |message| 
+            li= message
+        = f.label :title 
+        = f.text_field :title, id: :quest_title
+        = f.label :body
+        = f.text_field :body, id: :quest_body
+
+        = f.submit 'Изменить'
+      
       p= link_to 'Удалить вопрос', @quest, method: :delete, data: { confirm: 'Вы уверены?' } 
-   
+      
 .answers
   = render 'answers'
 -if user_signed_in?  
