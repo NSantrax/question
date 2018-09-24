@@ -16,7 +16,7 @@
         = f.label :body
         = f.text_field :body, id: :quest_body
 
-        = f.submit 'Изменить'
+        = f.submit 'Save'
       
       p= link_to 'Удалить вопрос', @quest, method: :delete, data: { confirm: 'Вы уверены?' } 
       

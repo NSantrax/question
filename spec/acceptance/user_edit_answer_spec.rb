@@ -27,8 +27,9 @@ feature 'User can edit answer', %q{
   
     scenario 'Author can edite answer', js: true do
     
-      click_on 'Edit'
+     
       within '.answers' do
+        click_on 'Edit'
         fill_in 'Answer', with: 'My new answer'
         click_on 'Save'
         expect(page).to_not have_content answer.body
@@ -40,11 +41,12 @@ feature 'User can edit answer', %q{
   
     scenario 'Author cannot update invalid his answer', js: true do
    
-      click_on 'Edit'
+      
       within '.answers' do
+        click_on 'Edit'
         fill_in 'Answer', with: '1'
+        click_on 'Save'
       end
-      click_on 'Save'
       expect(page).to have_content "Body is too short"
    
     end

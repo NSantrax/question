@@ -2,7 +2,7 @@
    <% @answer.errors.full_messages.each do |message| %>
       $('.answer-errors').html('<%= j message %>');
    <% end %>  
-   <% else %>
+ <% else %>
      $('.answers').html('<%= j render 'quests/answers' %>');
        $('.edit-answer-link').click( function(e) {
          e.preventDefault();

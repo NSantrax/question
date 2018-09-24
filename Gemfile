@@ -69,7 +69,7 @@ group :test do
   gem 'shoulda-matchers', '~> 3.1', require: false
   gem 'launchy'
   gem 'database_cleaner'
-
+  
   
 end
 
