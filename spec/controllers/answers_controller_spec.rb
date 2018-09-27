@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe AnswersController, type: :controller do
+
   let(:user) {create (:user)}
   let!(:quest) {create(:quest, user: user)}
- 
- 
+
   describe 'POST #create' do
     user_sign_in
     context 'with valid attribut' do
@@ -25,6 +25,7 @@ RSpec.describe AnswersController, type: :controller do
       
       it 'render create template' do
         post :create, params: {quest_id: quest, answer: attributes_for(:invalid_answer, user: user)}, format: :js
+
         expect(response).to render_template :create
       end
     end

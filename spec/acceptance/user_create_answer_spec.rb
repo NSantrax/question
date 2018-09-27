@@ -5,6 +5,7 @@ feature 'User can create answer', %q{
 } do
   given(:user) { create(:user)}
   given!(:quest) { create(:quest, user: user)}
+
   scenario 'Authenticated user can create answer', js: true do
     sign_in(user)
     visit quest_path(quest)
@@ -21,7 +22,7 @@ feature 'User can create answer', %q{
     sign_in(user)
     visit quest_path(quest)
     click_on 'Create'
-   
+
     expect(page).to have_content "Body is too short"
    
   end

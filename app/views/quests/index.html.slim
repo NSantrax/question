@@ -6,8 +6,7 @@
     p= link_to 'Показать вопрос', q
     -if current_user == q.user
       p= link_to 'Изменить вопрос', edit_quest_path(q)
-      p= link_to 'Удалить', q, method: :delete, data: { confirm: 'Вы уверены?' } 
-    
+      p= link_to 'Удалить', q, method: :delete, data: { confirm: 'Вы уверены?' }
     
     <h3> Answers: </h3> 
     - q.answers.each do |answer|
