@@ -1,0 +1,13 @@
+ p= @quest.title
+ p= @quest.body
+ -if user_signed_in? && current_user == @quest.user
+      p= link_to 'Edit','', class: 'edit-quest-link', data: {quest_id: @quest.id}
+      p
+        = form_for [@quest], remote: true, html: {id: "edit-quest-#{@quest.id}"} do |f|
+          = f.label :title
+          .quest-errors
+          = f.text_field :title, id: :quest_title
+          = f.label :body
+          = f.text_field :body, id: :quest_body
+          = f.submit 'Save'
+      p= link_to 'Удалить вопрос', @quest, method: :delete, data: { confirm: 'Вы уверены?' } 

@@ -27,11 +27,8 @@ class QuestsController < ApplicationController
   end
   
   def update
-      if @quest.update(quest_params)
-        redirect_to quests_path, notice: 'Вопрос изменен'
-      else
-        render :edit
-      end
+    @quest.update(quest_params)
+       
   end
 
   def destroy

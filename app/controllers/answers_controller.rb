@@ -14,8 +14,9 @@ class AnswersController < ApplicationController
 
   def destroy
     @answer = Answer.find(params[:id])
+    @quest = @answer.quest
     @answer.destroy
-    redirect_to quests_path, notice: 'Ответ удален'
+    redirect_to quest_path(@quest), notice: 'Ответ удален'
   end
  
   private

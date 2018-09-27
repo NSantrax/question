@@ -26,10 +26,12 @@ feature 'User can edit question', %q{
       fill_in 'Title', with: 'My new question'
       fill_in 'Body', with: 'My new text'
       click_on 'Save'
-      expect(page).to_not have_content quest.body
-      expect(page).to_not have_selector 'textarea'
-      expect(page).to have_content 'My new question'
-       expect(page).to have_content 'My new text'    
+      within '.quest' do
+        expect(page).to_not have_content quest.body
+        expect(page).to_not have_selector 'textarea'
+        expect(page).to have_content 'My new question'
+        expect(page).to have_content 'My new text'
+      end    
     end
   
     scenario 'Author cannot update invalid his question', js: true do

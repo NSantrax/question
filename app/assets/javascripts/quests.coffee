@@ -3,8 +3,8 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $ ->
-  $('.edit-quest-link').click(e) ->
+  $('.edit-quest-link').click (e) ->
     e.preventDefault();
     $(this).hide();
-    quest_id = $(this).data('questId')
-    $('form#edit-quest-'+'quest_id').show()
+    quest_id = $(this).data('questId');
+    $('form#edit-quest-'+ quest_id ).show()
