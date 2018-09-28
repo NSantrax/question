@@ -1,6 +1,7 @@
 class Quest < ApplicationRecord
   
   has_many :answers, dependent: :destroy
+  belongs_to :user
   
   validates :title, :body, presence: true
   validates_length_of :title, :within => 3..250

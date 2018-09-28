@@ -15,7 +15,7 @@ class QuestsController < ApplicationController
  end
  
  def create
-   @quest = Quest.new(quest_params)
+   @quest = Quest.new(quest_params.merge(user: current_user))
    if @quest.save
      redirect_to @quest, notice: 'Вопрос сохранен'
    else
@@ -27,11 +27,8 @@ class QuestsController < ApplicationController
   end
   
   def update
-      if @quest.update(quest_params)
-        redirect_to quests_path, notice: 'Вопрос изменен'
-      else
-        render :edit
-      end
+    @quest.update(quest_params)
+       
   end
 
   def destroy
@@ -46,6 +43,6 @@ class QuestsController < ApplicationController
   end
 
   def quest_params
-  	params.require(:quest).permit(:title, :body)
+  	params.require(:quest).permit(:title, :body, :user)
   end
 end

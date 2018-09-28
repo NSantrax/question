@@ -1,0 +1,14 @@
+ <% if @quest.errors.present? %>
+   <% @quest.errors.full_messages.each do |message| %>
+      $('.quest-errors').html('<%= j message %>');
+   <% end %>  
+ <% else %>
+   $('.quest').html('<%= j render 'quests/quest' %>');
+   $('.edit-quest-link').click(function (e) {
+       e.preventDefault();
+       $(this).hide();
+       quest_id = $(this).data('questId');
+       $('form#edit-quest-'+ quest_id).show();
+   });
+ <% end %>
+   

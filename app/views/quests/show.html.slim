@@ -1,15 +1,15 @@
 <h1> Question </h1>
-    = link_to 'Назад', quests_path
-    p= @quest.title
-    p= @quest.body
-    p= link_to 'Изменить вопрос', edit_quest_path(@quest)
-    p= link_to 'Удалить вопрос', @quest, method: :delete, data: { confirm: 'Вы уверены?' } 
-   
+= link_to 'Назад', quests_path
+.quest   
+  = render 'quest'
+  .quest-errors    
 .answers
   = render 'answers'
+  .answer-errors
 -if user_signed_in?  
   = form_for [@quest, @answer], remote: true do |f|
     = f.label :body, 'You answer'
+    .answer-errors
     = f.text_area :body
     = f.submit 'Create'
  

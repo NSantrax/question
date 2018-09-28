@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe QuestsController, type: :controller do
-
-  let(:quests) {create_list(:quest, 2)}
-  
+  let(:user) {create (:user)}
+  let(:quests) {create_list(:quest, 2, {user: user})}
+ 
   
   describe 'GET #index' do
     before { get :index }
@@ -16,7 +16,7 @@ RSpec.describe QuestsController, type: :controller do
   end
   
    describe 'GET #show' do
-     let(:quest) {create(:quest)}
+     let(:quest) {create(:quest, user: user)}
      before {get :show, params: { id: quest }}
     it 'assigns to requested quest to @quest' do
       expect(assigns(:quest)).to eq quest
