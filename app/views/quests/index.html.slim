@@ -2,7 +2,12 @@
 
  -@quests.reverse.each do |q| 
     p= q.title
-    p= q.body 
+    p= q.body
+    p Attachments:
+    ul
+     -q.attachments.each do |a|
+       li= a.file.file.filename
+         
     p= link_to 'Показать вопрос', q
     -if current_user == q.user
       p= link_to 'Изменить вопрос', edit_quest_path(q)

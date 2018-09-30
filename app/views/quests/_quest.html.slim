@@ -1,5 +1,10 @@
  p= @quest.title
  p= @quest.body
+ p Attachments:
+ ul
+   -@quest.attachments.each do |a|
+     li= a.file.file.filename
+ 
  -if user_signed_in? && current_user == @quest.user
       p= link_to 'Edit','', class: 'edit-quest-link', data: {quest_id: @quest.id}
       p

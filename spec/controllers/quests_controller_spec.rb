@@ -35,9 +35,15 @@ RSpec.describe QuestsController, type: :controller do
      user_sign_in
      
      before {get :new}
+     
     it 'assigns a new Quest to @quest' do
       expect(assigns(:quest)).to be_a_new(Quest)
     end
+    
+     it 'build a new attachment for quest' do
+      expect(assigns(:quest).attachments.first).to be_a_new(Attachment)
+    end
+    
     it 'renders new view' do
       expect(response).to render_template :new
     end
