@@ -1,7 +1,7 @@
 class Quest < ApplicationRecord
   
   has_many :answers, dependent: :destroy
-  has_many :attachments
+  has_many :attachments, as: :attachmentable
   belongs_to :user
   accepts_nested_attributes_for :attachments
   

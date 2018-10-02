@@ -1,14 +1,13 @@
 <h1>Список записей </h1>
 
  -@quests.reverse.each do |q| 
-    p= q.title
+    p= link_to "#{q.title}", q
     p= q.body
     p Attachments:
     ul
      -q.attachments.each do |a|
        li= link_to a.file.identifier, a.file.url
          
-    p= link_to 'Показать вопрос', q
     -if current_user == q.user
       p= link_to 'Изменить вопрос', edit_quest_path(q)
       p= link_to 'Удалить', q, method: :delete, data: { confirm: 'Вы уверены?' }

@@ -5,6 +5,7 @@ feature 'User can add file to question', %q{
   Question's author can to attach files
 } do
   given(:user) { create(:user)}
+  
   background do
     sign_in(user)
     visit new_quest_path
