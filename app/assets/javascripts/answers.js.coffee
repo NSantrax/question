@@ -10,5 +10,5 @@ $ ->
     $('form#edit-answer-'+ answer_id).show()
     
     
-  $('form.new_answer').bind 'ajax.success', (e, data, status, xhr) ->
+  $('form.new_answer').bind 'ajax:success', (e, data, status, xhr) ->
     $('.answers').html(xhr.responseText)

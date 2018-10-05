@@ -3,10 +3,14 @@ class AnswersController < ApplicationController
  
   def create
     @quest = Quest.find(params[:quest_id])
-    @answer = @quest.answers.create(answer_params.merge(user: current_user))
+    @answer = @quest.answers.build(answer_params.merge(user: current_user))
     
     respond_to do |format|
-      format.html { render partial: 'quests/answers', layout: false }
+      if @answer.save
+        format.html { render partial: 'quests/answers', layout: false }
+      else
+        format.html { render text: @answer.errors.full_messages.join("\n") }
+      end
     end
   end
   
