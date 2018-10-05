@@ -8,10 +8,12 @@ class QuestsController < ApplicationController
  
  def show
    @answer=@quest.answers.build
+   @answer.attachments.build
  end
  
  def new
    @quest = Quest.new
+   @quest.attachments.build
  end
  
  def create
@@ -43,6 +45,6 @@ class QuestsController < ApplicationController
   end
 
   def quest_params
-  	params.require(:quest).permit(:title, :body, :user)
+  	params.require(:quest).permit(:title, :body, :user, attachments_attributes: [:id, :file, :_destroy])
   end
 end

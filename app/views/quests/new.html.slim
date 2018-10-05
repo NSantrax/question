@@ -1,4 +1,4 @@
-= form_for @quest do |f|
+= nested_form_for @quest do |f|
   - if @quest.errors.any?
     div id="error_explanation"
       h2= pluralize(@quest.errors.count, "error prohibited this quest from being saved:") 
@@ -6,11 +6,20 @@
       ul
       -@quest.errors.full_messages.each do |message| 
          li= message
-  = f.label :title
-  = f.text_field :title
-  = f.label :body
-  = f.text_area :body
+  p       
+    = f.label :title
+    = f.text_field :title
+  p
+    = f.label :body
+    = f.text_area :body
+  p Attachments:
+  p
+    = f.fields_for :attachments do |a|
+      = a.label :file
+      = a.file_field :file
+      = a.link_to_remove "Remove this file"
+    = f.link_to_add "Add a file", :attachments
   = f.submit 'Create'
-  
+p  
   = link_to 'Назад', quests_path
 
