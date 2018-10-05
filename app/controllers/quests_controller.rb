@@ -45,6 +45,6 @@ class QuestsController < ApplicationController
   end
 
   def quest_params
-  	params.require(:quest).permit(:title, :body, :user, attachments_attributes: [:file])
+  	params.require(:quest).permit(:title, :body, :user, attachments_attributes: [:id, :file, :_destroy])
   end
 end
