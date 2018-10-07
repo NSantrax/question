@@ -18,6 +18,7 @@ feature 'User can add file to answer', %q{
     attach_file 'File', "#{Rails.root}/spec/spec_helper.rb"
     click_on 'Create'
     
+    visit quest_path(quest)
     within '.answers' do
       expect(page).to have_link 'spec_helper.rb', href: '/uploads/attachment/file/1/spec_helper.rb'
     end

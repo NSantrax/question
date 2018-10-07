@@ -5,14 +5,15 @@
   .quest-errors    
 .answers
   = render 'answers'
-  .answer-errors
+ 
 -if user_signed_in?  
-  = form_for [@quest, @answer], remote: true, data: { type: :html } do |f|
+  = form_for [@quest, @answer], remote: true, data: { type: :json } do |f|
     = f.label :body, 'You answer'
+    .answer-errors
     = f.text_area :body
     p Attachments:
     p 
-      = f.fields_for :attachmentsd do |a|
+      = f.fields_for :attachments, remote: true, class: 'attachments', data: { type: :json } do |a|
         = a.label :file
         = a.file_field :file
     = f.submit 'Create'
