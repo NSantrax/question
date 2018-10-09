@@ -35,24 +35,24 @@ RSpec.describe AnswersController, type: :controller do
     let(:answer){create(:answer, quest: quest, user: user)}
     user_sign_in
     it 'assigns the requested answer to @answer' do
-        patch :update, params:{id: answer, quest_id: quest, answer: attributes_for(:answer, user: user)}, format: :js
+        patch :update, params:{id: answer, quest_id: quest, answer: attributes_for(:answer, user: user)}, format: :json
         expect(assigns(:answer)).to eq answer
     end
     
     it 'assigns the requested quest to @quest' do
-        patch :update, params:{id: answer, quest_id: quest, answer: attributes_for(:answer, user: user)}, format: :js
+        patch :update, params:{id: answer, quest_id: quest, answer: attributes_for(:answer, user: user)}, format: :json
         expect(assigns(:quest)).to eq quest
     end
       
     it 'changes answer attributes' do
-        patch :update, params:{ id: answer, quest_id: quest, user: user, answer: {body: 'new body'}}, format: :js
+        patch :update, params:{ id: answer, quest_id: quest, user: user, answer: {body: 'new body'}}, format: :json
         answer.reload
         expect(answer.body).to eq 'new body'
     end
       
     it 'render update template' do
-        patch :update, params:{ id: answer, quest_id: quest, answer: attributes_for(:answer, user: user)}, format: :js
-        expect(response).to render_template :update
+        patch :update, params:{ id: answer, quest_id: quest, answer: attributes_for(:answer, user: user)}, format: :json
+        expect(response).to render_template @answer
     
     end
   end
