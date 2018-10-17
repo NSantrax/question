@@ -16,6 +16,10 @@ feature 'User can create answer', %q{
     expect(current_path).to eq quest_path(quest)
     within '.answers' do
       expect(page).to have_content 'My answer'
+    end
+    visit quest_path(quest)
+    within '.answers' do
+      expect(page).to have_content 'My answer'
       expect(page).to have_link 'spec_helper.rb', href: '/uploads/attachment/file/1/spec_helper.rb'
     end
   end

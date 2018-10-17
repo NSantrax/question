@@ -5,18 +5,16 @@
   .quest-errors    
 .answers
   = render 'answers'
-  .answer-errors
+ 
 -if user_signed_in?  
-  = nested_form_for [@quest, @answer], remote: true do |f|
+  = form_for [@quest, @answer], remote: true, data: { type: :json } do |f|
     = f.label :body, 'You answer'
     .answer-errors
     = f.text_area :body
     p Attachments:
     p 
-      = f.fields_for :attachments, remote: true do |a|
+      = f.fields_for :attachments, remote: true, class: 'attachments', data: { type: :json } do |a|
         = a.label :file
         = a.file_field :file
-        = a.link_to_remove "Remove this file"
-      = f.link_to_add "Add a file", :attachments
     = f.submit 'Create'
  

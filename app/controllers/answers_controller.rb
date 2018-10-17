@@ -3,13 +3,32 @@ class AnswersController < ApplicationController
  
   def create
     @quest = Quest.find(params[:quest_id])
-    @answer = @quest.answers.create(answer_params.merge(user: current_user))
+    @answer = @quest.answers.build(answer_params.merge(user: current_user))
+ 
+    respond_to do |format|
+      if @answer.save
+        format.html { render partial: 'quests/answers', layout: false }
+        format.json { render json: @answer, status: :created}
+      else
+        format.html { render text: @answer.errors.full_messages.join("\n"), status: :unprocessable_entity }
+        format.json { render json: @answer.errors.full_messages, status: :unprocessable_entity }
+      end
+    end
   end
   
   def update
      @answer = Answer.find(params[:id])
      @answer.update(answer_params)
      @quest = @answer.quest
+     respond_to do |format|
+      if @answer.save
+        #format.html { render partial: 'quests/answers', layout: false }
+        format.json { render json: @answer }
+      else
+       # format.html { render text: @answer.errors.full_messages.join("\n"), status: :unprocessable_entity }
+        format.json { render json: @answer.errors.full_messages, status: :unprocessable_entity }
+      end
+    end
   end
 
   def destroy
