@@ -40,6 +40,7 @@ gem 'devise'
 gem 'jquery-rails'
 gem 'remotipart'
 gem 'private_pub'
+gem 'thin'
 gem 'nested_form'
 gem 'carrierwave'
 

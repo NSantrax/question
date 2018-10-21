@@ -6,12 +6,10 @@ class AnswersController < ApplicationController
     @answer = @quest.answers.build(answer_params.merge(user: current_user))
  
     respond_to do |format|
-      if @answer.save
-        format.html { render partial: 'quests/answers', layout: false }
-        format.json { render json: @answer, status: :created}
+      if @answer.save        
+        format.js
       else
-        format.html { render text: @answer.errors.full_messages.join("\n"), status: :unprocessable_entity }
-        format.json { render json: @answer.errors.full_messages, status: :unprocessable_entity }
+        format.js
       end
     end
   end

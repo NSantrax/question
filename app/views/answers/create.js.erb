@@ -2,9 +2,12 @@
    <% @answer.errors.full_messages.each do |message| %>
       $('.answer-errors').html('<%= j message %>');
    <% end %>  
-   <% else %>
-     $('.answers').html('<%= j render 'quests/answers' %>');
-     $('#answer_body').val('');
+   <% else %> 
+     <% publish_to "/quests/#{@quest.id}/answers" do %>
+       $('.answers').html('<%= j render 'quests/answers' %>');
+     <% end %>
+     $('.new_answer#answer_body').val('');
+     
  <% end %>
  
  
