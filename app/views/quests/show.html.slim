@@ -3,7 +3,7 @@
 .quest   
   = render 'quest'
   .quest-errors    
-.answers
+.answers data={quest_id: "#{@quest.id}"}
   = render 'answers'
  
 -if user_signed_in?  

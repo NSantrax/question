@@ -7,7 +7,10 @@ class AnswersController < ApplicationController
  
     respond_to do |format|
       if @answer.save        
-        format.js
+        format.js do
+          PrivatePub.publish_to "/quests/#{@quest.id}/answers", answer: @answer.to_json
+          render nothing: true
+        end
       else
         format.js
       end
