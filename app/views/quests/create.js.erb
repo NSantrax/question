@@ -1,0 +1,14 @@
+ <% if @quest.errors.present? %>
+   <% @quest.errors.full_messages.each do |message| %>
+      $('.quest-errors').html('<%= j message %>');
+   <% end %>  
+   <% else %> 
+     <% publish_to "/quests" do %>
+       $('.quests').html('<%= j render 'quests' %>');
+     <% end %>
+     $('.new_quest#quest_title').val('');
+     $('.new_quest#quest_body').val('');
+     
+ <% end %>
+ 
+ 

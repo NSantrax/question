@@ -1,0 +1,24 @@
+-if @quests.any?
+  - @quests.each do |quest|
+    p= link_to quest.title, quest
+    p= quest.body
+    .quest-errors
+    p Attachments:
+    -if quest.attachments.any?
+    ul
+      -quest.attachments.each do |a|
+        li= link_to a.file.identifier, a.file.url
+    -if user_signed_in? && current_user == quest.user
+      p= link_to 'Edit', '', class: 'edit-quest-link', data: {quest_id: quest.id}
+      p
+        = form_for quest, remote: true, remote: true, json: {id: "edit-quest-#{quest.id}"}, data: { type: :json } do |f|
+            = f.label :title
+            = f.text_field :title
+            = f.label :body, 'Quest'
+            .quest-errors
+            = f.text_area :body
+            = f.submit 'Save'
+      = subscribe_to "/quests"
+      p= link_to 'Удалить вопрос', quest, method: :delete, data: { confirm: 'Вы уверены?' }  
+        
+    

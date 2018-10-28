@@ -4,6 +4,8 @@ class QuestsController < ApplicationController
  
  def index
    @quests=Quest.all
+   @quest=Quest.new
+   @quest.attachments.build
  end
  
  def show
@@ -19,9 +21,12 @@ class QuestsController < ApplicationController
  def create
    @quest = Quest.new(quest_params.merge(user: current_user))
    if @quest.save
-     redirect_to @quest, notice: 'Вопрос сохранен'
+     format.js do
+       PrivatePub.publish_to "/quests/#{@quest.id}/answers", answer: @answer.to_json
+       render nothing: true
+     end
    else
-     render :new
+     format.js
    end
  end
  
