@@ -1,7 +1,8 @@
+-@quest.answers.any?
 - @quest.answers.each do |answer|
   -if answer.persisted?
     p= answer.body
-    .answer-errors
+   
     p Attachments:
     ul
       -answer.attachments.each do |a|

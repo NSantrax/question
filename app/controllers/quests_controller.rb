@@ -8,25 +8,29 @@ class QuestsController < ApplicationController
    @quest.attachments.build
  end
  
- def show
+ def show  
    @answer=@quest.answers.build
    @answer.attachments.build
+   @answer.comments.build
  end
  
  def new
    @quest = Quest.new
    @quest.attachments.build
+   @quest.comments.build
  end
  
  def create
    @quest = Quest.new(quest_params.merge(user: current_user))
-   if @quest.save
-     format.js do
-       PrivatePub.publish_to "/quests/#{@quest.id}/answers", answer: @answer.to_json
-       render nothing: true
+   respond_to do |format|
+     if @quest.save
+       format.js do
+         PrivatePub.publish_to "/quests", quest: @quest.to_json
+         render nothing: true
+       end
+     else
+       format.js
      end
-   else
-     format.js
    end
  end
  
@@ -52,4 +56,5 @@ class QuestsController < ApplicationController
   def quest_params
   	params.require(:quest).permit(:title, :body, :user, attachments_attributes: [:id, :file, :_destroy])
   end
+  
 end
