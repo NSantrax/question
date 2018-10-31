@@ -1,17 +1,18 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!,  only: [:new, :create, :edit, :update, :destroy]
-  belongs_to :question, :answer, polymorphic: true
+  
   
   def create
-    @commentable = Commentable.find(params[:quest_id])
-    @comment = @commentable.comments.build(comment_params.merge(user: current_user))
- 
+    if params[:answer_id].nil?
+      @quest =  Quest.find(params[:quest_id])
+      @comment = @quest.comments.build(comment_params) 
+      else
+        @answer = Answer.find(params[:answer_id])
+        @comment = @answer.comments.build(comment_params)  
+    end
     respond_to do |format|
-      if @answer.save        
-        format.js do
-          PrivatePub.publish_to "/quests/#{@quest.id}/answers", answer: @answer.to_json
-          render nothing: true
-        end
+      if @comment.save        
+        format.js 
       else
         format.js
       end

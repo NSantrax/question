@@ -5,10 +5,9 @@
    -@quest.attachments.each do |a|
      li= link_to a.file.identifier, a.file.url
  h4 Comments:
- -if @quest.comments.any?
-    ul
-      -@quest.comments.each do |c|
-        = c.body
+ .quest-comments
+   = render 'comments/list', parent: @quest
+ 
  
  -if user_signed_in? && current_user == @quest.user
       p= link_to 'Edit','', class: 'edit-quest-link', data: {quest_id: @quest.id}

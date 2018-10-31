@@ -6,18 +6,20 @@ class QuestsController < ApplicationController
    @quests=Quest.all
    @quest=Quest.new
    @quest.attachments.build
+   
  end
  
  def show  
    @answer=@quest.answers.build
    @answer.attachments.build
-   @answer.comments.build
+   
+  
  end
  
  def new
    @quest = Quest.new
    @quest.attachments.build
-   @quest.comments.build
+   
  end
  
  def create

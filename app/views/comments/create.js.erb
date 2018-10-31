@@ -1,0 +1,20 @@
+ <% if @comment.errors.present? %>
+   <% @comment.errors.full_messages.each do |message| %>
+      $('.comment-errors').html('<%= j message %>');
+   <% end %>
+    
+   <% else %>
+   
+     <% if @comment.commentable_type == Quest %>
+       $('.quest-comments').html('<%= j render 'list', parent: @comment.quest %>');
+       <% elsif @comment.commentable_type == Answer %>
+         $('#answer-<%= parent.id %> .answer-comments').html('<%= j render 'list', parent: @comment.answer %>');
+    <% end %> 
+       
+    $('.new_comment #comment_body').val('');
+     
+ <% end %>
+ 
+
+ 
+ 

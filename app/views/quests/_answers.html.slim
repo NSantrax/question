@@ -1,12 +1,18 @@
 -@quest.answers.any?
 - @quest.answers.each do |answer|
   -if answer.persisted?
-    p= answer.body
+    .answer id="answer-#{answer.id}"
+      p= answer.body
    
-    p Attachments:
-    ul
-      -answer.attachments.each do |a|
-        li= link_to a.file.identifier, a.file.url
+      h4 Attachments:
+      ul
+        -answer.attachments.each do |a|
+          li= link_to a.file.identifier, a.file.url
+      h4 Comments:
+      .answer-comments
+          = render 'comments/list', parent: answer
+   
+    
         
     -if user_signed_in? && current_user == answer.user
         p= link_to 'Edit', '', class: 'edit-answer-link', data: {answer_id: answer.id}

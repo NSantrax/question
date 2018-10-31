@@ -1,0 +1,16 @@
+- parent.comments.each do |comment|
+  p= comment.body
+- if parent.class == Answer
+  = parent.class
+  = form_for [parent.quest, parent, parent.comments.build], remote: true do |f|
+    p
+      = f.label :body, 'Comment'
+      = f.text_area :body
+    p = f.submit 'Post comment'
+- if parent.class == Quest
+  = parent.class
+  = form_for [parent, parent.comments.build], remote: true do |f|
+    p
+     = f.label :body, 'Comment'
+     = f.text_area :body
+    p = f.submit 'Post comment'  
