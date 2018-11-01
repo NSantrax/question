@@ -13,7 +13,7 @@ class CommentsController < ApplicationController
     respond_to do |format|
       if @comment.save        
         format.js 
-      else
+        else
         format.js
       end
     end

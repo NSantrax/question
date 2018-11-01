@@ -4,11 +4,14 @@
    <% end %>
     
    <% else %>
-   
-     <% if @comment.commentable_type == Quest %>
-       $('.quest-comments').html('<%= j render 'list', parent: @comment.quest %>');
-       <% elsif @comment.commentable_type == Answer %>
-         $('#answer-<%= parent.id %> .answer-comments').html('<%= j render 'list', parent: @comment.answer %>');
+     <% if @comment.commentable_type == 'Quest' %>
+       <% publish_to "/quests/#{@comment.commentable.id}/comments" do %>
+         $('.quest-comments').html('<%= j render 'comments/list', parent: @comment.commentable %>');
+       <% end %> 
+       <% elsif @comment.commentable_type == 'Answer' %>
+         <% publish_to "/quests/#{@comment.commentable.quest.id}/answers/#{@comment.commentable_id}/comments" do %>
+           $('#answer-<%= @comment.commentable_id %> .answer-comments').html('<%= j render 'comments/list', parent: @comment.commentable %>');
+         <% end %> 
     <% end %> 
        
     $('.new_comment #comment_body').val('');

@@ -7,10 +7,12 @@
       = f.label :body, 'Comment'
       = f.text_area :body
     p = f.submit 'Post comment'
+  = subscribe_to "/quests/#{parent.quest.id}/answers/#{parent.id}/comments"
 - if parent.class == Quest
   = parent.class
   = form_for [parent, parent.comments.build], remote: true do |f|
     p
      = f.label :body, 'Comment'
      = f.text_area :body
-    p = f.submit 'Post comment'  
+    p = f.submit 'Post comment'
+  = subscribe_to "/quests/#{parent.id}/comments"  
