@@ -1,22 +1,22 @@
-h1= @quest.title
-h4= @quest.body
-h4 Attachments:
-ul
-  -@quest.attachments.each do |a|
-    li= link_to a.file.identifier, a.file.url
-h4 Comments:
-.quest-comments
-  = render 'comments/list', parent: @quest
+.quest
+  h1= @quest.title
+  h4= @quest.body
  
- 
--if user_signed_in? && current_user == @quest.user
-  p= link_to 'Edit','', class: 'edit-quest-link', data: {quest_id: @quest.id}
-  p
-    = form_for [@quest], remote: true, html: {id: "edit-quest-#{@quest.id}"} do |f|
-      = f.label :title
-      .quest-errors
-      = f.text_field :title, id: :quest_title
-      = f.label :body
-      = f.text_field :body, id: :quest_body
-      = f.submit 'Save'
-  p= link_to 'Удалить вопрос', @quest, method: :delete, data: { confirm: 'Вы уверены?' } 
+  -if user_signed_in? && current_user == @quest.user
+    p= link_to 'Edit','', class: 'edit-quest-link', data: {quest_id: @quest.id}
+    p
+      = form_for [@quest], remote: true, html: {id: "edit_quest_#{@quest.id}"} do |f|
+        = f.label :title
+        .quest-errors
+        = f.text_field :title, id: :quest_title
+        = f.label :body
+        = f.text_field :body, id: :quest_body
+        = f.submit 'Save'
+    p= link_to 'Удалить вопрос', @quest, method: :delete, data: { confirm: 'Вы уверены?' }
+  h4 Attachments:
+  ul
+    -@quest.attachments.each do |a|
+      li= link_to a.file.identifier, a.file.url
+  h4 Comments:
+  .quest-comments
+    = render 'comments/list', parent: @quest

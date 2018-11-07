@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     resources :comments
   end
   
-  resources :quests, concerns: :commentable do
+  resources :quests, concerns: :commentable, shallow: true do
       resources :answers, concerns: :commentable
   end
   

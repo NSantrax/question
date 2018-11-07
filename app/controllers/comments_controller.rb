@@ -1,25 +1,25 @@
 class CommentsController < ApplicationController
-  before_action :authenticate_user!,  only: [:new, :create, :edit, :update, :destroy]
-  
+  before_action :authenticate_user!
+  before_action :load_parents
+  after_action :publish_comment
+  respond_to :js
   
   def create
-    if params[:answer_id].nil?
-      @quest =  Quest.find(params[:quest_id])
-      @comment = @quest.comments.build(comment_params) 
-      else
-        @answer = Answer.find(params[:answer_id])
-        @comment = @answer.comments.build(comment_params)  
-    end
-    respond_to do |format|
-      if @comment.save        
-        format.js 
-        else
-        format.js
-      end
-    end
+      respond_with(@comment = @parent.comments.create(comment_params))
   end
     
   protected
+  
+  def load_parents
+    @parent =  Quest.find(params[:quest_id]) if params[:quest_id]
+    @parent ||= Answer.find(params[:answer_id])
+  end
+  
+  def publish_comment
+    channel = "/quests/#{@parent.id}/comments" if params[:quest_id]
+    channel ||= "/quests/#{@parent.quest.id}/answers/#{@parent.id}/comments" 
+    PrivatePub.publish_to channel, comment: @comment.to_json
+  end
 
   def comment_params
     params.require(:comment).permit(:body)

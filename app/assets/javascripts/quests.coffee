@@ -19,4 +19,17 @@ $ ->
       $('.new_quest #answer_title').val('');
       $('.new_quest #answer_body').val('');
     
+    $('form.edit_quest').bind 'ajax:success', (e, data, status, xhr) ->
+      quest = $.parseJSON(xhr.responseText)
+      $('.quests').append('<p>' + quest.title + '</p>');
+      $('.quests').append('<p>' + quest.body + '</p>');
+      quest_id = quest.id
+      $('form#edit_quest_'+ quest_id).hide();
+      $('.edit-quest-link').show()
+     
+    
+  .bind 'ajax:error', (e, xhr, status, error) ->
+    errors = $.parseJSON(xhr.responseText)
+    $.each errors, (index, value) ->
+      $('.quest-errors').append(value)
   

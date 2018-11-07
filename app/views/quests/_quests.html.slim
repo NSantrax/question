@@ -1,9 +1,10 @@
 -@quests=Quest.all
 -if @quests.any?
   - @quests.each do |quest|
+    .quest id="quest-#{quest.id}"
     h3= link_to quest.title, quest
     h4= quest.body
-    .quest-errors
+
     h4 Attachments:
     -if quest.attachments.any?
       ul
@@ -13,7 +14,7 @@
     -if user_signed_in? && current_user == quest.user
       p= link_to 'Edit', '', class: 'edit-quest-link', data: {quest_id: quest.id}
       p
-        = form_for quest, remote: true, json: {id: "edit-quest-#{quest.id}"}, data: { type: :json } do |f|
+        = form_for quest, remote: true, json: {id: "edit_quest_#{quest.id}"}, data: { type: :json } do |f|
             = f.label :title
             = f.text_field :title
             = f.label :body, 'Quest'

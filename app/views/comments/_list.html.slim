@@ -1,18 +1,11 @@
 - parent.comments.each do |comment|
   p= comment.body
-- if parent.class == Answer
-  = parent.class
-  = form_for [parent.quest, parent, parent.comments.build], remote: true do |f|
-    p
-      = f.label :body, 'Comment'
-      = f.text_area :body
-    p = f.submit 'Post comment'
-  = subscribe_to "/quests/#{parent.quest.id}/answers/#{parent.id}/comments"
-- if parent.class == Quest
-  = parent.class
-  = form_for [parent, parent.comments.build], remote: true do |f|
-    p
-     = f.label :body, 'Comment'
-     = f.text_area :body
-    p = f.submit 'Post comment'
-  = subscribe_to "/quests/#{parent.id}/comments"  
+  
+= form_for [parent, parent.comments.build], remote: true do |f|
+  p
+    = f.label :body, 'Comment'
+    .comment-errors
+    = f.text_area :body
+  p = f.submit 'Post comment'
+= subscribe_to "/quests/#{parent.quest.id}/answers/#{parent.id}/comments" if parent.class == 'Answer'
+= subscribe_to "/quests/#{parent.id}/comments" if parent.class == 'Quest'

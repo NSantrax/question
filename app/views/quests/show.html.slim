@@ -3,7 +3,7 @@
 .quest  
   = render 'quest'
   .quest-errors
-
+  
      
 .answers data={quest_id: "#{@quest.id}"}
   = render 'answers'
@@ -15,10 +15,11 @@
     = f.text_area :body
     p Attachments:
     p 
-      = f.fields_for :attachments, remote: true, class: 'attachments', data: { type: :json } do |a|
+      = f.fields_for :attachments, @answer.attachments.build, remote: true, class: 'attachments', data: { type: :json } do |a|
         = a.label :file
         = a.file_field :file
     = f.submit 'Create'
   
 = subscribe_to "/quests/#{@quest.id}/answers"
+= subscribe_to "/quests"
  

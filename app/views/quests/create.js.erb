@@ -1,6 +1,6 @@
- <% if @quest.errors.present? %>
-   <% @quest.errors.full_messages.each do |message| %>
-      $('.quest-errors').html('<%= j message %>');
+ <% if @comment.errors.present? %>
+   <% @comment.errors.full_messages.each do |message| %>
+      $('.comment-errors').html('<%= j message %>');
    <% end %>
     
    <% else %> 
