@@ -26,9 +26,9 @@ RSpec.describe QuestsController, type: :controller do
       expect(assigns(:answer)).to be_a_new(Answer)
     end
     
-    it 'build a new attachment for answer' do
-      expect(assigns(:answer).attachments.first).to be_a_new(Attachment)
-    end
+ #   it 'build a new attachment for answer' do
+ #     expect(assigns(:answer).attachments.first).to be_a_new(Attachment)
+ #  end
     
     it 'renders show view' do
       expect(response).to render_template :show
@@ -44,9 +44,9 @@ RSpec.describe QuestsController, type: :controller do
       expect(assigns(:quest)).to be_a_new(Quest)
     end
     
-     it 'build a new attachment for quest' do
-      expect(assigns(:quest).attachments.first).to be_a_new(Attachment)
-    end
+ #    it 'build a new attachment for quest' do
+ #      expect(assigns(:quest).attachments.first).to be_a_new(Attachment)
+ #   end
     
     it 'renders new view' do
       expect(response).to render_template :new

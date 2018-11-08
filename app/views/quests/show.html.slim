@@ -13,7 +13,7 @@
     = f.text_area :body
     p Attachments:
     p 
-      = f.fields_for :attachments, remote: true, class: 'attachments', data: { type: :json } do |a|
+      = f.fields_for :attachments, @answer.attachments.build, remote: true, class: 'attachments', data: { type: :json } do |a|
         = a.label :file
         = a.file_field :file
     = f.submit 'Create'
