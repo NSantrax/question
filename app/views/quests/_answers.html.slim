@@ -10,11 +10,11 @@
     -if user_signed_in? && current_user == answer.user
         p= link_to 'Edit', '', class: 'edit-answer-link', data: {answer_id: answer.id}
         p
-          = form_for [@quest, answer], remote: true, json: {id: "edit-answer-#{answer.id}"}, data: { type: :json } do |f|
+          = form_for answer, remote: true, json: {id: "edit-answer-#{answer.id}"}, data: { type: :json } do |f|
             = f.label :body, 'Answer'
             .answer-errors
             = f.text_area :body
             = f.submit 'Save'
-        p= link_to 'Удалить ответ', [@quest, answer], method: :delete, data: { confirm: 'Вы уверены?' } 
+        p= link_to 'Удалить ответ',  answer, method: :delete, data: { confirm: 'Вы уверены?' } 
         
 

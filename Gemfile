@@ -42,6 +42,7 @@ gem 'remotipart'
 gem 'private_pub'
 gem 'nested_form'
 gem 'carrierwave'
+gem 'thin'
 gem 'responders'
 
 group :development, :test do

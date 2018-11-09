@@ -13,3 +13,6 @@ en:
     quest:
       create:
         notice: 'Врпрос сохранен'
+    answer:
+      destroy:
+        notice: 'You answer del'
