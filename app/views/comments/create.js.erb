@@ -4,10 +4,10 @@
    <% end %>
     
    <% else %>
-    <% if parent_type == :quest %>
-      $('.comments').html('<%= j render 'list' %>');
-      <% elsif parent_type == :answer %>
-        $('#answer-<%= parent.id %> .answer-comments').html('<%= j render 'list' %>');
+    <% if @comment.commentable_type == 'Quest' %>
+      $('.comments').html('<%= j render 'list', parent: @comment.commentable%>');
+      <% elsif @comment.commentable_type == 'Answer' %>
+        $('#answer-<%= @comment.commentable_id %> .answer-comments').html('<%= j render 'list', parent: @comment.commentable %>');
     <% end %>
        
     $('.new_comment #comment_body').val('');

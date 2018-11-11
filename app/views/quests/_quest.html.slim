@@ -2,7 +2,7 @@
  p= @quest.body
  p Comments:
  .comments
-   
+   = render 'comments/list', parent: @quest
  p Attachments:
  ul
    -@quest.attachments.each do |a|
