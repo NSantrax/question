@@ -9,24 +9,24 @@ RSpec.describe AnswersController, type: :controller do
     user_sign_in
     context 'with valid attribut' do
       it 'save a new answer in database' do
-        expect {post :create, params: {quest_id: quest, answer: attributes_for(:answer)}, format: :json}.to change(Answer, :count).by(1)
+        expect {post :create, params: {quest_id: quest, answer: attributes_for(:answer)}, format: :js}.to change(Answer, :count).by(1)
       end
       
       it 'render create template' do
-        post :create, params: {quest_id: quest.id, answer: attributes_for(:answer, user: user)}, format: :json
-        expect(response).to render_template @answer
+        post :create, params: {quest_id: quest.id, answer: attributes_for(:answer, user: user)}, format: :js
+        expect(response).to render_template "answers/create"
       end
     end
      
     context 'with invalid attribut' do
       it 'not save the quest' do
-        expect {post :create, params: {quest_id: quest, answer: attributes_for(:invalid_answer, user: user)}, format: :json}.to_not change(Answer, :count)
+        expect {post :create, params: {quest_id: quest, answer: attributes_for(:invalid_answer, user: user)}, format: :js}.to_not change(Answer, :count)
       end
       
       it 'render create template' do
-        post :create, params: {quest_id: quest, answer: attributes_for(:invalid_answer, user: user)}, format: :json
+        post :create, params: {quest_id: quest, answer: attributes_for(:invalid_answer, user: user)}, format: :js
 
-        expect(response).to render_template @answer
+        expect(response).to render_template "answers/create"
       end
     end
   end

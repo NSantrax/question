@@ -4,20 +4,14 @@
    <% end %>
     
    <% else %>
-     <% if @comment.commentable_type == 'Quest' %>
-       
-         $('.quest-comments').html('<%= j render 'comments/list', parent: @comment.commentable %>');
-       
-       <% elsif @comment.commentable_type == 'Answer' %>
-        
-           $('#answer-<%= @comment.commentable_id %> .answer-comments').html('<%= j render 'comments/list', parent: @comment.commentable %>');
-     
-    <% end %> 
+
+    <% if @comment.commentable_type == 'Quest' %>
+      $('.comments').html('<%= j render 'list', parent: @comment.commentable%>');
+      <% elsif @comment.commentable_type == 'Answer' %>
+        $('#answer-<%= @comment.commentable_id %> .answer-comments').html('<%= j render 'list', parent: @comment.commentable %>');
+    <% end %>
        
     $('.new_comment #comment_body').val('');
      
- <% end %>
- 
+<% end %>
 
- 
- 

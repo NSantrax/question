@@ -2,6 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+
 $ ->
   $('.edit-answer-link').click (e) ->
     e.preventDefault();
@@ -43,7 +44,7 @@ $ ->
     errors = $.parseJSON(xhr.responseText)
     $.each errors, (index, value) ->
       $('.answer-errors').append(value)
-      
+
       
    
   
