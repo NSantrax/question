@@ -1,21 +1,30 @@
 <h1>Список записей </h1>
 
- -@quests.reverse.each do |q| 
-    p= link_to "#{q.title}", q
-    p= q.body
+.quests 
+  = render 'quests'
+  .quest-errors  
+-if user_signed_in?
+  h4 New question:
+  = form_for @quest, remote: true do |f|
+    p       
+      = f.label :title
+      = f.text_field :title
+    p
+      = f.label :body
+      = f.text_area :body
     p Attachments:
-    ul
-     -q.attachments.each do |a|
-       li= link_to a.file.identifier, a.file.url
-         
-    -if current_user == q.user
-      p= link_to 'Изменить вопрос', edit_quest_path(q)
-      p= link_to 'Удалить', q, method: :delete, data: { confirm: 'Вы уверены?' }
+    p
+      = f.fields_for :attachments, @quest.attachments.build do |a|
+        = a.label :file
+        = a.file_field :file
+
+   
+    = f.submit 'Create'
+= subscribe_to "/quests"
+ 
+
     
-    <h3> Answers: </h3> 
-    - q.answers.each do |answer|
-      p= answer.body
      
 
- p= link_to 'Ask question', new_quest_path 
+
 

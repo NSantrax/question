@@ -1,20 +1,25 @@
 <h1> Question </h1>
-= link_to 'Назад', quests_path
-.quest   
+ = link_to 'Назад', quests_path
+.quest  
   = render 'quest'
-  .quest-errors    
-.answers
+  .quest-errors
+  
+     
+.answers data={quest_id: "#{@quest.id}"}
   = render 'answers'
- 
+
 -if user_signed_in?  
-  = form_for [@quest, @answer], remote: true, data: { type: :json } do |f|
+  = form_for [@quest, @answer], remote: true do |f|
     = f.label :body, 'You answer'
     .answer-errors
     = f.text_area :body
     p Attachments:
     p 
-      = f.fields_for :attachments, remote: true, class: 'attachments', data: { type: :json } do |a|
+      = f.fields_for :attachments, @answer.attachments.build, remote: true, class: 'attachments', data: { type: :json } do |a|
         = a.label :file
         = a.file_field :file
     = f.submit 'Create'
+  
+= subscribe_to "/quests/#{@quest.id}/answers"
+= subscribe_to "/quests"
  

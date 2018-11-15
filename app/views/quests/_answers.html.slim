@@ -1,20 +1,25 @@
+-@quest.answers.any?
 - @quest.answers.each do |answer|
   -if answer.persisted?
-    p= answer.body
-    .answer-errors
-    p Attachments:
-    ul
-      -answer.attachments.each do |a|
-        li= link_to a.file.identifier, a.file.url
+    .answer id="answer-#{answer.id}"
+      p= answer.body   
         
-    -if user_signed_in? && current_user == answer.user
+      -if user_signed_in? && current_user == answer.user
         p= link_to 'Edit', '', class: 'edit-answer-link', data: {answer_id: answer.id}
         p
-          = form_for [@quest, answer], remote: true, json: {id: "edit-answer-#{answer.id}"}, data: { type: :json } do |f|
+          = form_for answer, remote: true, json: {id: "edit-answer-#{answer.id}"}, data: { type: :json } do |f|
             = f.label :body, 'Answer'
             .answer-errors
             = f.text_area :body
             = f.submit 'Save'
-        p= link_to 'Удалить ответ', [@quest, answer], method: :delete, data: { confirm: 'Вы уверены?' } 
+        = subscribe_to "/quests/#{@quest.id}/answers"
+        p= link_to 'Удалить ответ', answer, method: :delete, data: { confirm: 'Вы уверены?' }
         
-
+      h4 Attachments:
+      ul
+        -answer.attachments.each do |a|
+          li= link_to a.file.identifier, a.file.url
+      h4 Comments:
+      .answer-comments
+        = render 'comments/list', parent: answer  
+      
