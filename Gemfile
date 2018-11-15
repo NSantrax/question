@@ -40,9 +40,11 @@ gem 'devise'
 gem 'jquery-rails'
 gem 'remotipart'
 gem 'private_pub'
+gem 'thin'
 gem 'nested_form'
 gem 'carrierwave'
 gem 'thin'
+
 gem 'responders'
 
 group :development, :test do

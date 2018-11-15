@@ -3,8 +3,10 @@ class AnswersController < ApplicationController
   before_action :load_answer, only: [:update, :destroy]
   after_action :publish_answer, only: :create
   
+
   respond_to :js, only: :create
   respond_to :json, only: :update
+
  
   def create
     @quest = Quest.find(params[:quest_id])
@@ -14,6 +16,7 @@ class AnswersController < ApplicationController
   def update
     @answer.update(answer_params)
     respond_to do |format|
+
       if @answer.save
         #format.html { render partial: 'quests/answers', layout: false }
         format.json { render json: @answer }
@@ -25,7 +28,9 @@ class AnswersController < ApplicationController
   end
 
   def destroy
+
    respond_with(@answer.destroy, :location => quest_path(@quest), notice: 'Ответ удален')
+
   end
  
   private

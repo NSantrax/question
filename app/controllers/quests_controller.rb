@@ -1,6 +1,7 @@
 class QuestsController < ApplicationController
  before_action :authenticate_user!,  only: [:new, :create, :edit, :update, :destroy]
  before_action :load_quest, only: [:show, :edit, :update, :destroy]
+
  before_action :build_answer, only: :show
  
  respond_to :js, only: :update
@@ -15,12 +16,15 @@ class QuestsController < ApplicationController
  
  def new
    respond_with(@quest = Quest.new)
+
  end
  
  def create
    @quest = Quest.new(quest_params.merge(user: current_user))
+
    @quest.save 
    respond_with @quest
+
  end
  
   def edit
@@ -28,7 +32,9 @@ class QuestsController < ApplicationController
   
   def update
     @quest.update(quest_params)
+
     respond_with @quest  
+
   end
 
   def destroy
@@ -41,11 +47,14 @@ class QuestsController < ApplicationController
     @quest = Quest.find(params[:id])
   end
   
+
   def build_answer
     @answer=@quest.answers.build
   end
   
+
   def quest_params
   	params.require(:quest).permit(:title, :body, :user, attachments_attributes: [:id, :file, :_destroy])
   end
+  
 end

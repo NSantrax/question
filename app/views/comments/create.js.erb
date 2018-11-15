@@ -4,6 +4,7 @@
    <% end %>
     
    <% else %>
+
     <% if @comment.commentable_type == 'Quest' %>
       $('.comments').html('<%= j render 'list', parent: @comment.commentable%>');
       <% elsif @comment.commentable_type == 'Answer' %>
@@ -13,3 +14,4 @@
     $('.new_comment #comment_body').val('');
      
 <% end %>
+
