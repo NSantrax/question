@@ -10,6 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 2018_11_18_190426) do
 
   # These are extensions that must be enabled in order to support this database
@@ -46,7 +47,9 @@ ActiveRecord::Schema.define(version: 2018_11_18_190426) do
 
   create_table "comments", force: :cascade do |t|
     t.string "body"
+
     t.integer "commentable_id"
+
     t.string "commentable_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

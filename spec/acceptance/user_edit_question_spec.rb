@@ -26,6 +26,7 @@ feature 'User can edit question', %q{
       fill_in 'Title', with: 'My new question'
       fill_in 'Body', with: 'My new text'
       click_on 'Save'
+      visit quest_path(quest)
       within '.quest' do
         expect(page).to_not have_content quest.body
         #expect(page).to_not have_selector 'textarea'

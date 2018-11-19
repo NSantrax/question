@@ -5,9 +5,10 @@ class Quest < ApplicationRecord
   has_many :comments, as: :commentable
   belongs_to :user
   accepts_nested_attributes_for :attachments
+  accepts_nested_attributes_for :comments
   
   validates :title, :body, presence: true
   validates_length_of :title, :within => 3..250
   validates_length_of :body, :within => 3..2000
-  accepts_nested_attributes_for :attachments
+ 
 end

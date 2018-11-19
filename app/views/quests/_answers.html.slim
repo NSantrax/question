@@ -1,6 +1,8 @@
+-@quest.answers.any?
 - @quest.answers.each do |answer|
   -if answer.persisted?
     .answer id="answer-#{answer.id}"
+
       p= answer.body
       p Comments:
       .answer-comments
@@ -10,8 +12,9 @@
     ul
       -answer.attachments.each do |a|
         li= link_to a.file.identifier, a.file.url
+
         
-    -if user_signed_in? && current_user == answer.user
+      -if user_signed_in? && current_user == answer.user
         p= link_to 'Edit', '', class: 'edit-answer-link', data: {answer_id: answer.id}
         p
           = form_for answer, remote: true, json: {id: "edit-answer-#{answer.id}"}, data: { type: :json } do |f|
@@ -19,6 +22,15 @@
             .answer-errors
             = f.text_area :body
             = f.submit 'Save'
-        p= link_to 'Удалить ответ',  answer, method: :delete, data: { confirm: 'Вы уверены?' } 
-        
 
+        p= link_to 'Удалить ответ',  answer, method: :delete, data: { confirm: 'Вы уверены?' } 
+
+        
+      h4 Attachments:
+      ul
+        -answer.attachments.each do |a|
+          li= link_to a.file.identifier, a.file.url
+      h4 Comments:
+      .answer-comments
+        = render 'comments/list', parent: answer  
+      

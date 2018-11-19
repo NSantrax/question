@@ -10,5 +10,14 @@
        quest_id = $(this).data('questId');
        $('form#edit-quest-'+ quest_id).show();
    });
+   
+ 
+   $('.quests').html('<%= j render 'quests/quests' %>');
+   $('.edit-answer-link').click(function (e) {
+       e.preventDefault();
+       $(this).hide();
+       quest_id = $(this).data('questId');
+       $('form#edit-quest-'+ quest_id).show();
+   });
  <% end %>
    

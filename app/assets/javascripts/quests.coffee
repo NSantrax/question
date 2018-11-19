@@ -7,6 +7,7 @@ $ ->
     e.preventDefault();
     $(this).hide();
     quest_id = $(this).data('questId');
+
     $('form#edit-quest-'+ quest_id ).show();
     
     
