@@ -188,6 +188,8 @@ GEM
     omniauth-twitter (1.4.0)
       omniauth-oauth (~> 1.1)
       rack
+    omniauth-vkontakte (1.4.1)
+      omniauth-oauth2 (~> 1.2)
     orm_adapter (0.5.0)
     pg (1.0.0)
     private_pub (1.0.3)
@@ -338,6 +340,7 @@ DEPENDENCIES
   omniauth
   omniauth-facebook
   omniauth-twitter
+  omniauth-vkontakte
   pg (>= 0.18, < 2.0)
   private_pub
   puma (~> 3.11)
