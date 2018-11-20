@@ -38,6 +38,5 @@ feature 'User can create question', %q{
     visit quests_path
 
     expect(page).to_not have_content 'Ask question'
- 
-   end
+  end
 end
