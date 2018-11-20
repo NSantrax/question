@@ -4,7 +4,7 @@ class QuestsController < ApplicationController
 
  before_action :build_answer, only: :show
  
- respond_to :js, only: :update
+ respond_to :html
  
  def index
    respond_with(@quests=Quest.all)
@@ -16,7 +16,6 @@ class QuestsController < ApplicationController
  
  def new
    respond_with(@quest = Quest.new)
-
  end
  
  def create

@@ -20,7 +20,7 @@ feature 'User can edit question', %q{
       expect(page).to have_link "Edit"
     end
   
-    scenario 'Author can edite question', js: true do
+    scenario 'Author can edite question' do
     
       click_on 'Edit'
       fill_in 'Title', with: 'My new question'
@@ -35,7 +35,7 @@ feature 'User can edit question', %q{
       end    
     end
   
-    scenario 'Author cannot update invalid his question', js: true do
+    scenario 'Author cannot update invalid his question' do
    
       click_on 'Edit'
       fill_in 'Body', with: '1'

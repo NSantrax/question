@@ -3,25 +3,7 @@
 .quests 
   = render 'quests'
   .quest-errors  
--if user_signed_in?
-  h4 New question:
-  = form_for @quest, remote: true do |f|
-    p       
-      = f.label :title
-      = f.text_field :title
-    p
-      = f.label :body
-      = f.text_area :body
-    p Attachments:
-
-    ul
-     -q.attachments.each do |a|
-       li= link_to a.file.identifier, a.file.url
-         
-    -if current_user == q.user
-      p= link_to 'Изменить вопрос', quest_path(q)
-      p= link_to 'Удалить', q, method: :delete, data: { confirm: 'Вы уверены?' }
-
+p= link_to 'Ask question', new_quest_path
     
      
 

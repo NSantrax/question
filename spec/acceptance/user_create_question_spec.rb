@@ -10,7 +10,7 @@ feature 'User can create question', %q{
     
     visit quests_path
 
-  
+    click_on 'Ask question'
     fill_in 'Title', with: 'Title'
     fill_in 'Body', with: 'Test text'
     attach_file 'File', "#{Rails.root}/spec/spec_helper.rb" 
@@ -27,7 +27,7 @@ feature 'User can create question', %q{
    sign_in(user)
      
    visit quests_path
-    
+    click_on 'Ask question'
     click_on 'Create'
     
     expect(page).to have_content "Body is too short"
@@ -37,7 +37,7 @@ feature 'User can create question', %q{
   scenario 'Non-authenticated user cannot create question' do
     visit quests_path
 
-    expect(page).to_not have_content "Title"
+    expect(page).to_not have_content 'Ask question'
  
    end
 end
