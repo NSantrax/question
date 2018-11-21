@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable, omniauth_providers: [:facebook, :vkontakte]
   has_many :answers
   has_many :quests
@@ -12,7 +12,7 @@ class User < ApplicationRecord
     return authorization.user if authorization
 
     email = auth.info[:email]
-    email ||= Devise.friendly_token[0, 7].to_s + '@vk.com'
+    email ||= auth.uid.to_s + '@vk.com'
     user = User.where(email: email).first
     unless user
       password = Devise.friendly_token[0, 20]

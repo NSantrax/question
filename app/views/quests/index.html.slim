@@ -2,8 +2,9 @@
 
 .quests 
   = render 'quests'
-  .quest-errors  
-p= link_to 'Ask question', new_quest_path
+  .quest-errors
+-if user_signed_in?  
+  p= link_to 'Ask question', new_quest_path
     
      
 

@@ -4,7 +4,7 @@ class QuestsController < ApplicationController
 
  before_action :build_answer, only: :show
  
- respond_to :html
+ #respond_to :html
  
  def index
    respond_with(@quests=Quest.all)
@@ -22,7 +22,7 @@ class QuestsController < ApplicationController
    @quest = Quest.new(quest_params.merge(user: current_user))
 
    @quest.save 
-   respond_with @quest
+   respond_with(@quest, location: quest_path(@quest))
 
  end
  
@@ -32,7 +32,7 @@ class QuestsController < ApplicationController
   def update
     @quest.update(quest_params)
 
-    respond_with @quest  
+    respond_with(@quest, location: quests_path)  
 
   end
 
