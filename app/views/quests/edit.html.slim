@@ -7,7 +7,7 @@ h1 Редактировать вопрос
       -@quest.errors.full_messages.each do |message| 
          li= message
 
-= form_for @quest, remote: true do |f| 
+= form_for @quest do |f| 
   
   = f.label :title 
   = f.text_field :title, id: :quest_title

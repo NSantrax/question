@@ -6,8 +6,10 @@ feature 'User sign in', %q{
   I want to be able to sign in
 } do
   given(:user) { create(:user)}
+
   scenario 'A registered user tries to sign in' do
-   sign_in(user)
+
+    sign_in(user)
     
     expect(page).to have_content 'Signed in successfully.'
     expect(current_path).to eq root_path

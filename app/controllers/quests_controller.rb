@@ -4,7 +4,7 @@ class QuestsController < ApplicationController
 
  before_action :build_answer, only: :show
  
- #respond_to :html
+ respond_to :html
  
  def index
    respond_with(@quests=Quest.all)
@@ -32,10 +32,10 @@ class QuestsController < ApplicationController
   def update
     @quest.update(quest_params)
 
-    respond_with(@quest, location: quests_path)  
+    respond_with @quest
 
   end
-
+ 
   def destroy
     respond_with(@quest.destroy)
   end
