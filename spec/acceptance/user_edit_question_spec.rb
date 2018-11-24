@@ -7,12 +7,14 @@ feature 'User can edit question', %q{
   given(:user) { create(:user)}
   given!(:quest) { create(:quest, user: user)}
  scenario 'Unauthenticated user cannot edit question', js: true do
+
     visit quests_path
     expect(page).to_not have_link "Edit"
   end 
   
   describe 'Authenticated user' do
     before do
+      user.confirm
       sign_in(user)
       visit quest_path(quest)
     end
@@ -47,6 +49,7 @@ feature 'User can edit question', %q{
   describe 'Authenticated user' do
     before do
       @user = User.create(email: 'other@mail.ru', password: '1234567', password_confirmation: '12345678')
+      @user.confirm
       sign_in(@user)
       visit quest_path(quest)
     end

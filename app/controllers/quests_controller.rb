@@ -22,8 +22,7 @@ class QuestsController < ApplicationController
    @quest = Quest.new(quest_params.merge(user: current_user))
 
    @quest.save 
-   respond_with(@quest, location: quest_path(@quest))
-
+   respond_with @quest
  end
  
   def edit

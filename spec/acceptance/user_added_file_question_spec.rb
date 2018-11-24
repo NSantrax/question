@@ -6,13 +6,11 @@ feature 'User can add file to question', %q{
 } do
   given(:user) { create(:user)}
   
-  background do
+ 
+  scenario 'Authenticated user adds files when ask question', js: true do
+    user.confirm
     sign_in(user)
     visit new_quest_path
-  end
-
-  scenario 'Authenticated user adds files when ask question', js: true do
-    
     fill_in 'Title', with: 'Title'
     fill_in 'Body', with: 'Test text'
     attach_file 'File', "#{Rails.root}/spec/spec_helper.rb"

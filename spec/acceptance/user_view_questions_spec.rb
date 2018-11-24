@@ -6,7 +6,6 @@ feature 'User can view list questions', %q{
   given(:quest) { create(:quest)}
   given(:quest1) { create(:quest)}
   scenario 'User can view list questions' do
- 
     visit quests_path
     Quest.all.each do |quest|
       expect(page).to have_content quest.title

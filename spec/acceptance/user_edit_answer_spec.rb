@@ -15,6 +15,7 @@ feature 'User can edit answer', %q{
   
   describe 'Authenticated user' do
     before do
+      user.confirm
       sign_in(user)
       visit quest_path(quest)
     end
@@ -55,6 +56,7 @@ feature 'User can edit answer', %q{
   describe 'Authenticated user' do
     before do
       @user = User.create(email: 'other@mail.ru', password: '1234567', password_confirmation: '12345678')
+      @user.confirm
       sign_in(@user)
       visit quest_path(quest)
     end

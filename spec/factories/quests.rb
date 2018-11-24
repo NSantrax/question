@@ -5,7 +5,7 @@ FactoryBot.define do
   
   end
   
-   factory :invalid_quest, class: "Quest" do
+  factory :invalid_quest, class: "Quest" do
     title nil
     body nil
   end

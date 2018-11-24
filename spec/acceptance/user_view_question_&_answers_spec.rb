@@ -9,6 +9,7 @@ feature 'User can view  question with answers', %q{
   scenario 'User can view question' do
    Answer.create!(quest:quest, body: 'text 1234567', user: user)
    Answer.create!(quest:quest, body: 'text text', user: user)
+    user.confirm
     visit quests_path
     
     expect(page).to have_content "MyString"

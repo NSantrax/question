@@ -60,6 +60,9 @@ GEM
       rack (>= 1.6.0)
       rack-test (>= 0.6.3)
       xpath (~> 3.1)
+    capybara-email (3.0.1)
+      capybara (>= 2.4, < 4.0)
+      mail
     capybara-webkit (1.15.0)
       capybara (>= 2.3, < 4.0)
       json
@@ -140,6 +143,8 @@ GEM
     jwt (2.1.0)
     launchy (2.4.3)
       addressable (~> 2.3)
+    letter_opener (1.6.0)
+      launchy (~> 2.2)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -324,6 +329,7 @@ DEPENDENCIES
   bootsnap (>= 1.1.0)
   byebug
   capybara
+  capybara-email
   capybara-webkit
   carrierwave
   chromedriver-helper
@@ -335,6 +341,7 @@ DEPENDENCIES
   jquery-rails
   json_spec
   launchy
+  letter_opener
   listen (>= 3.0.5, < 3.2)
   nested_form
   omniauth
