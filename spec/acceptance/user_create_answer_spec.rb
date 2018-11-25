@@ -8,7 +8,7 @@ feature 'User can create answer', %q{
 
   scenario 'Authenticated user can create answer', js: true do
     
-    user.confirm
+    #user.confirm
     sign_in(user)
     visit quest_path(quest)
   
@@ -25,7 +25,7 @@ feature 'User can create answer', %q{
   end
   
   scenario 'Authenticated user can not create invalid answer', js: true do
-    user.confirm
+    #user.confirm
     sign_in(user)
     visit quest_path(quest)
     click_on 'Create'

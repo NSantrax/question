@@ -6,7 +6,7 @@ feature 'User can create question', %q{
 } do
   given(:user) { create(:user)}
   scenario 'User can create qestion' do
-    user.confirm
+    #user.confirm
     sign_in(user)
     visit quests_path
 
@@ -24,7 +24,7 @@ feature 'User can create question', %q{
   end
   
   scenario 'User cannot create invalid qestion' do
-    user.confirm
+    #user.confirm
     sign_in(user)
      
     visit quests_path

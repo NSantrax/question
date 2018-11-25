@@ -9,7 +9,7 @@ feature 'User sign in', %q{
 
   scenario 'A registered user tries to sign in' do
    
-    user.confirm
+    #user.confirm
     sign_in(user)
     
     expect(page).to have_content 'Signed in successfully.'

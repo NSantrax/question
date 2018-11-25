@@ -14,7 +14,7 @@ feature 'User can edit question', %q{
   
   describe 'Authenticated user' do
     before do
-      user.confirm
+      #user.confirm
       sign_in(user)
       visit quest_path(quest)
     end

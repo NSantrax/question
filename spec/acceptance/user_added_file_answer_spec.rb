@@ -10,7 +10,7 @@ feature 'User can add file to answer', %q{
  
 
   scenario 'Authenticated user adds files to answer', js: true do
-    user.confirm
+    #user.confirm
     sign_in(user)
     visit quest_path(quest)
     fill_in 'You answer', with: 'My answer'

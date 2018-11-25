@@ -33,7 +33,7 @@ feature 'User sign up', %q{
   end
   
   scenario 'A registered user tries to sign up' do
-    user.confirm
+    #user.confirm
     visit new_user_session_path  
     click_on 'Sign up' 
     fill_in 'Email', with: user.email

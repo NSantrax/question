@@ -8,7 +8,7 @@ feature 'User can add file to question', %q{
   
  
   scenario 'Authenticated user adds files when ask question', js: true do
-    user.confirm
+    #user.confirm
     sign_in(user)
     visit new_quest_path
     fill_in 'Title', with: 'Title'
