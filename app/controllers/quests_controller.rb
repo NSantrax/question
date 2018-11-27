@@ -23,7 +23,6 @@ class QuestsController < ApplicationController
 
    @quest.save 
    respond_with @quest
-
  end
  
   def edit
@@ -32,10 +31,10 @@ class QuestsController < ApplicationController
   def update
     @quest.update(quest_params)
 
-    respond_with @quest  
+    respond_with @quest
 
   end
-
+ 
   def destroy
     respond_with(@quest.destroy)
   end

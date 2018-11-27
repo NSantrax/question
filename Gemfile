@@ -43,12 +43,11 @@ gem 'private_pub'
 gem 'thin'
 gem 'nested_form'
 gem 'carrierwave'
-gem 'thin'
-
 gem 'responders'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
+gem 'omniauth-vkontakte'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -60,6 +59,7 @@ group :development, :test do
   gem 'capybara-webkit'
   gem 'launchy'
   gem 'database_cleaner'
+  gem 'letter_opener'
    
 end
 
@@ -82,6 +82,7 @@ group :test do
   gem 'chromedriver-helper'
   gem 'shoulda-matchers', '~> 3.1', require: false
   gem 'json_spec'
+  gem 'capybara-email'
  
 end
 

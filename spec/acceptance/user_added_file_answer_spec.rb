@@ -7,13 +7,12 @@ feature 'User can add file to answer', %q{
   given(:user) { create(:user)}
   given!(:quest) { create(:quest, user: user)}
   
-  background do
-    sign_in(user)
-    visit quest_path(quest)
-  end
+ 
 
   scenario 'Authenticated user adds files to answer', js: true do
-    
+    #user.confirm
+    sign_in(user)
+    visit quest_path(quest)
     fill_in 'You answer', with: 'My answer'
     attach_file 'File', "#{Rails.root}/spec/spec_helper.rb"
     click_on 'Create'

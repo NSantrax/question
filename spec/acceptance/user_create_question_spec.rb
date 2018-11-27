@@ -6,8 +6,8 @@ feature 'User can create question', %q{
 } do
   given(:user) { create(:user)}
   scenario 'User can create qestion' do
-   sign_in(user)
-    
+    #user.confirm
+    sign_in(user)
     visit quests_path
 
     click_on 'Ask question'
@@ -15,8 +15,8 @@ feature 'User can create question', %q{
     fill_in 'Body', with: 'Test text'
     attach_file 'File', "#{Rails.root}/spec/spec_helper.rb" 
     click_on 'Create'
-    expect(current_path).to eq quests_path
-    visit quest_path(quest)
+    expect(current_path).to eq quest_path(Quest.last)
+    visit quest_path(Quest.last)
     
     expect(page).to have_content 'Test text'
     expect(page).to have_link 'spec_helper.rb', href: '/uploads/attachment/file/1/spec_helper.rb'
@@ -24,13 +24,14 @@ feature 'User can create question', %q{
   end
   
   scenario 'User cannot create invalid qestion' do
-   sign_in(user)
+    #user.confirm
+    sign_in(user)
      
-   visit quests_path
+    visit quests_path
     click_on 'Ask question'
     click_on 'Create'
     
-    expect(page).to have_content "Body is too short"
+    expect(page).to have_content "Quest could not be created"
     expect(current_path).to eq quests_path
   end
   
@@ -38,6 +39,5 @@ feature 'User can create question', %q{
     visit quests_path
 
     expect(page).to_not have_content 'Ask question'
- 
-   end
+  end
 end
