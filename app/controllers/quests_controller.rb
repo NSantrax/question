@@ -4,6 +4,7 @@ class QuestsController < ApplicationController
 
  before_action :build_answer, only: :show
  
+ authorize_resource
  respond_to :html
  
  def index
