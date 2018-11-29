@@ -26,6 +26,6 @@ class Ability
     gest_abilities
     can :create, [Quest, Answer, Comment]
     can :update, [Quest, Answer], user: user
-    can :delate, [Quest, Answer], user: user
+    can :delate, [Quest, Answer, Comment], user: user
   end 
 end
