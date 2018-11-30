@@ -25,12 +25,12 @@ require 'rails_helper'
       it {should_not be_able_to :update, create(:quest, user: other), user: user }
       it {should be_able_to :update, create(:answer, quest: quest, user: user), user: user }
       it {should_not be_able_to :update, create(:answer, quest: quest, user: other), user: user }
-      it {should be_able_to :delate, create(:quest, user: user), user: user }
-      it {should_not be_able_to :delate, create(:quest, user: other), user: user }
-      it {should be_able_to :delate, create(:answer, quest: quest, user: user), user: user }
-      it {should_not be_able_to :delate, create(:answer, quest: quest, user: other), user: user }
-      it {should be_able_to :delate, create(:comment, commentable: quest, user: user), user: user }
-      it {should_not be_able_to :delate, create(:comment, commentable: quest, user: other), user: user }
+      it {should be_able_to :destroy, create(:quest, user: user), user: user }
+      it {should_not be_able_to :destroy, create(:quest, user: other), user: user }
+      it {should be_able_to :destroy, create(:answer, quest: quest, user: user), user: user }
+      it {should_not be_able_to :destroy, create(:answer, quest: quest, user: other), user: user }
+      it {should be_able_to :destroy, create(:comment, commentable: quest, user: user), user: user }
+      it {should_not be_able_to :destroy, create(:comment, commentable: quest, user: other), user: user }
     end
     describe 'for_admin' do
       let(:user) { create :user, admin: true }

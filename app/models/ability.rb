@@ -4,13 +4,9 @@ class Ability
   attr_reader :user
 
   def initialize(user)
-    @user = user
+    
     if user
-      if user.admin?
-        admin_abilities
-      else       
-        user_abilities 
-      end
+      user.admin? ? admin_abilities : user_abilities(user)
     else
       #user ||= User.new # guest user (not logged in)
       gest_abilities
@@ -22,10 +18,10 @@ class Ability
   def admin_abilities
     can :manage, :all
   end
-  def user_abilities
+  def user_abilities(user)
     gest_abilities
     can :create, [Quest, Answer, Comment]
     can :update, [Quest, Answer], user: user
-    can :delate, [Quest, Answer, Comment], user: user
+    can :destroy, [Quest, Answer, Comment], user: user
   end 
 end

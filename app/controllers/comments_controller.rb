@@ -2,7 +2,7 @@ class CommentsController < ApplicationController
   before_action :authenticate_user!
   before_action :load_parents, only: :create
   before_action :load_quest, only: :destroy
-  
+  authorize_resource
   respond_to :js
   
   def create
@@ -21,7 +21,8 @@ class CommentsController < ApplicationController
   end
 
   def load_quest
-    @comment.parent.is_a?(Quest)? @quest = @comment.parent : @quest = @comment.parent.quest
+    @comment = Comment.find(params[:id])
+    @comment.commentable.is_a?(Quest)? @quest = @comment.commentable : @quest = @comment.commentable.quest
     
   end
 
