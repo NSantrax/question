@@ -6,10 +6,12 @@ class CommentsController < ApplicationController
   respond_to :js
    
   def create
+    authorize Comment
     respond_with(@comment = @parent.comments.create(comment_params.merge(user: current_user)))
   end
 
   def destroy
+   authorize @comment
    respond_with(@comment.destroy, :location => quest_path(@quest), notice: 'Ответ удален')
   end
     

@@ -7,7 +7,7 @@
         
       -if policy(answer).update?
         p= link_to 'Edit', '', class: 'edit-answer-link', data: {answer_id: answer.id}
-      -if policy(Answer).create?
+      
         p
           = form_for answer, remote: true, json: {id: "edit-answer-#{answer.id}"}, data: { type: :json } do |f|
             = f.label :body, 'Answer'

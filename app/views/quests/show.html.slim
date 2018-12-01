@@ -2,13 +2,14 @@
  = link_to 'Назад', quests_path
 .quest  
   = render 'quest'
+
   .quest-errors
   
      
 .answers data={quest_id: "#{@quest.id}"}
   = render 'answers'
 
--if user_signed_in?  
+
   = form_for [@quest, @answer], remote: true do |f|
     = f.label :body, 'You answer'
     .answer-errors

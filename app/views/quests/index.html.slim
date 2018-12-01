@@ -3,7 +3,7 @@
 .quests 
   = render 'quests'
   .quest-errors
--if can?(:create, Quest)
+-if policy(Quest).create?
   p= link_to 'Ask question', new_quest_path
     
      
