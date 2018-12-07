@@ -3,7 +3,7 @@
 .quests 
   = render 'quests'
   .quest-errors
--if user_signed_in?  
+-if policy(Quest).create?
   p= link_to 'Ask question', new_quest_path
     
      

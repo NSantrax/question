@@ -4,6 +4,7 @@ class QuestsController < ApplicationController
 
  before_action :build_answer, only: :show
  
+ #authorize_resource
  respond_to :html
  
  def index
@@ -15,10 +16,12 @@ class QuestsController < ApplicationController
  end
  
  def new
+   authorize Quest
    respond_with(@quest = Quest.new)
  end
  
  def create
+   authorize Quest
    @quest = Quest.new(quest_params.merge(user: current_user))
 
    @quest.save 
@@ -29,6 +32,7 @@ class QuestsController < ApplicationController
   end
   
   def update
+    authorize @quest
     @quest.update(quest_params)
 
     respond_with @quest
@@ -36,6 +40,7 @@ class QuestsController < ApplicationController
   end
  
   def destroy
+    authorize @quest
     respond_with(@quest.destroy)
   end
  

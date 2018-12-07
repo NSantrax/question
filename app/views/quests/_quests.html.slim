@@ -15,8 +15,11 @@
       ul
       -quest.answers.each do |a|
         li=a.body
-    -if user_signed_in? && current_user == quest.user
-      p= link_to 'Edit', edit_quest_path(quest)
-      p= link_to 'Удалить вопрос', quest, method: :delete, data: { confirm: 'Вы уверены?' }  
+    -if policy(quest).update?
+
+      p= link_to 'Edit', edit_quest_path(quest) if can?(:update, quest)
+    -if policy(quest).destroy?
+
+      p= link_to 'Удалить вопрос', quest, method: :delete, data: { confirm: 'Вы уверены?' }  if can?(:delate, quest)
       
     

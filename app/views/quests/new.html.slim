@@ -1,5 +1,8 @@
+- @quest.errors.full_messages.each do |message|
+  li= message
+end 
 = form_for @quest do |f|
-  
+ 
   p       
     = f.label :title
     = f.text_field :title
