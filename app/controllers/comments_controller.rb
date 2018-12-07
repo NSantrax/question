@@ -7,7 +7,7 @@ class CommentsController < ApplicationController
    
   def create
     authorize Comment
-    respond_with(@comment = @parent.comments.create(comment_params.merge(user: current_user)))
+    @comment = @parent.comments.create(comment_params.merge(user: current_user))
   end
 
   def destroy

@@ -1,13 +1,13 @@
 
 - parent.comments.each do |c|
   p= c.body
-  -if policy(c).destroy?
+  -if policy(c).destroy?  
     p= link_to 'Удалить комментарий',  c, method: :delete, data: { confirm: 'Вы уверены?' } 
-
-= form_for [parent, parent.comments.build], remote: true do |f|
-  p
-    = f.label :body, 'Comment'
-    .comment-errors
-    = f.text_area :body
-  p = f.submit 'Post comment'
+-if policy(Answer).create?
+  = form_for [parent, parent.comments.build], remote: true do |f|
+    p
+      = f.label :body, 'Comment'
+      .comment-errors
+      = f.text_area :body
+    p = f.submit 'Post comment'
 

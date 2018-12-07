@@ -2,7 +2,7 @@ require "application_responder"
 
 class ApplicationController < ActionController::Base
   self.responder = ApplicationResponder
-  respond_to :html, :js, :json
+  respond_to :html
   include Pundit
   #protect_form_forgery with: :exeption
 
@@ -10,16 +10,27 @@ class ApplicationController < ActionController::Base
     redirect_to root_url, alert: exeption.message
   end
 
+   rescue_from Exception, :with => :handle_exception
+
+  def handle_exception
+    flash[:error] = error.message
+    redirect_to request.referer || root_path
+  end
+
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
  
   private
  
-    def user_not_authorized
-      flash[:warning] = "You are not authorized to perform this action."
+    
+    def user_not_authorized(exception)
+
+      policy_name = exception.policy.class.to_s.underscore
+      
       respond_to do |format|
-        format.html { redirect_to(request.referrer || root_path) }
-        format.json { render json: @record.errors.full_messages, status: :unprocessable_entity}
-      end
+        format.html { redirect_to (request.referrer || root_path), alert: exception.message }
+        format.json { render json: { type: 'error', message: t("#{ policy_name }.#{ exception.query }") }, status: :unauthorized}
+        
+      end 
     end
 
 end

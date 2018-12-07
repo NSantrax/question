@@ -1,10 +1,11 @@
 <h1> Question </h1>
  = link_to 'Назад', quests_path
+ = flash[:error]  
 .quest  
   = render 'quest'
 
   .quest-errors
-  
+
      
 .answers data={quest_id: "#{@quest.id}"}
   = render 'answers'
