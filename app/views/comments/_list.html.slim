@@ -1,9 +1,9 @@
 
 - parent.comments.each do |c|
   p= c.body
-  -if can?(:destroy, c)
+  -if policy(c).destroy?  
     p= link_to 'Удалить комментарий',  c, method: :delete, data: { confirm: 'Вы уверены?' } 
--if can?(:create, Comment)
+-if policy(Answer).create?
   = form_for [parent, parent.comments.build], remote: true do |f|
     p
       = f.label :body, 'Comment'

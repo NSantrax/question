@@ -2,14 +2,16 @@ class CommentsController < ApplicationController
   before_action :authenticate_user!
   before_action :load_parents, only: :create
   before_action :load_quest, only: :destroy
-  authorize_resource
+  #authorize_resource
   respond_to :js
-  
+   
   def create
-    respond_with(@comment = @parent.comments.create(comment_params.merge(user: current_user)))
+    authorize Comment
+    @comment = @parent.comments.create(comment_params.merge(user: current_user))
   end
 
   def destroy
+   authorize @comment
    respond_with(@comment.destroy, :location => quest_path(@quest), notice: 'Ответ удален')
   end
     

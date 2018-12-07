@@ -3,17 +3,19 @@ class AnswersController < ApplicationController
   before_action :load_answer, only: [:update, :destroy]
   after_action :publish_answer, only: :create
   
-  authorize_resource
+  #authorize_resource
   respond_to :js, only: :create
   respond_to :json, only: :update
 
  
   def create
+    authorize Answer
     @quest = Quest.find(params[:quest_id])
     respond_with(@answer = @quest.answers.create(answer_params.merge(user: current_user)))
   end
   
   def update
+    authorize @answer
     @answer.update(answer_params)
     respond_to do |format|
 
@@ -28,8 +30,8 @@ class AnswersController < ApplicationController
   end
 
   def destroy
-
-   respond_with(@answer.destroy, :location => quest_path(@quest), notice: 'Ответ удален')
+    authorize @answer
+    respond_with(@answer.destroy, :location => quest_path(@quest), notice: 'Ответ удален')
 
   end
  

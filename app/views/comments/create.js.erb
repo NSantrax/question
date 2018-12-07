@@ -1,3 +1,10 @@
+ <% = flash[:error] %> 
+ <% if @record.errors.present? %>
+   <% @record.errors.full_messages.each do |message| %>
+      $('.comment-errors').html('<%= j message %>');
+   <% end %>
+ <% end %>
+
  <% if @comment.errors.present? %>
    <% @comment.errors.full_messages.each do |message| %>
       $('.comment-errors').html('<%= j message %>');

@@ -1,8 +1,9 @@
 p= @quest.title
 p= @quest.body
 
--if user_signed_in? && current_user == @quest.user
+-if policy(@quest).update?
   p= link_to 'Edit', edit_quest_path(@quest)
+-if policy(@quest).destroy?
   p= link_to 'Удалить вопрос', @quest, method: :delete, data: { confirm: 'Вы уверены?' }
 h4 Attachments:
 ul

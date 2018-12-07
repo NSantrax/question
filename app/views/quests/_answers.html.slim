@@ -1,20 +1,20 @@
 -@quest.answers.any?
-- @quest.answers.each do |answer|
-  -if answer.persisted?
-    .answer id="answer-#{answer.id}"
-
+  -@quest.answers.each do |answer|
+    -if answer.persisted?
+      .answer id="answer-#{answer.id}"
+  
       p= answer.body
         
-      -if can?(:update, answer)
+      -if policy(answer).update?
         p= link_to 'Edit', '', class: 'edit-answer-link', data: {answer_id: answer.id}
-      -if can?(:create, Answer)
+      
         p
           = form_for answer, remote: true, json: {id: "edit-answer-#{answer.id}"}, data: { type: :json } do |f|
             = f.label :body, 'Answer'
             .answer-errors
             = f.text_area :body
             = f.submit 'Save'
-      -if can?(:destroy, answer)
+      -if policy(answer).destroy?
         p= link_to 'Удалить ответ',  answer, method: :delete, data: { confirm: 'Вы уверены?' } 
 
         
