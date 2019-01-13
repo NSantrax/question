@@ -28,22 +28,26 @@ describe 'Quest API' do
         expect(response).to be_successfull
       end
       it 'returns list of quests' do
-        expect(response.body).to have_json_size(2)
+        expect(response.body).to have_json_size(2).at_path("quest")
       end
       
       %w(id title body created_at updated_at).each do |attr|
         it "quests object contains #{attr}" do        
-          expect(response.body).to be_eql(quest.send(attr.to_sym).to_json).at_path("0/#{attr}")
+          expect(response.body).to be_eql(quest.send(attr.to_sym).to_json).at_path("quest/0/#{attr}")
         end
       end
+      it "quests object contains short_title" do        
+          expect(response.body).to be_eql(quest.title.truncate(10).to_json).at_path("quest/0/short_title")
+      end
+
 
       context 'answers' do
         it 'included in quest object' do
-          expect(response.body).to have_json_size(1).at_path("0/answers}")
+          expect(response.body).to have_json_size(1).at_path("quest/0/answers}")
         end
         %w(id body created_at updated_at).each do |attr|
           it "contains #{attr}" do        
-            expect(response.body).to be_eql(answer.send(attr.to_sym).to_json).at_path("0/answers/0/#{attr}")
+            expect(response.body).to be_eql(answer.send(attr.to_sym).to_json).at_path("quest/0/answers/0/#{attr}")
           end
         end
       end
