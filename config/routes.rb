@@ -19,8 +19,9 @@ Rails.application.routes.draw do
         get :me, on: :collection
         get :index, on: :collection
       end
-      resources :quests
-      resources :answers
+      resources :quests, shallow: true do
+        resources :answers
+      end
     end
   end
   
