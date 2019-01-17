@@ -21,6 +21,7 @@ describe 'Quest API' do
       let!(:quests) { create_list(:quest, 2, user: user) }
       let (:quest) { quests.first }
       let!(:answer) { create(:answer, quest: quest, user: user)}
+      let!(:comment) { create(:comment, commentable: quest, user: user)}
 
       before { get '/api/v1/quests',  headers: { format: :json, Authorization: "Bearer#{access_token.token}" } }
      
@@ -48,6 +49,16 @@ describe 'Quest API' do
         %w(id body created_at updated_at).each do |attr|
           it "contains #{attr}" do        
             expect(response.body).to be_eql(answer.send(attr.to_sym).to_json).at_path("quest/0/answers/0/#{attr}")
+          end
+        end
+      end
+      context 'comments' do
+        it 'included in quest object' do
+          expect(response.body).to have_json_size(1).at_path("quest/0/comments}")
+        end
+        %w(id body created_at updated_at).each do |attr|
+          it "contains #{attr}" do        
+            expect(response.body).to be_eql(comment.send(attr.to_sym).to_json).at_path("quest/0/comments/0/#{attr}")
           end
         end
       end

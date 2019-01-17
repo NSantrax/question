@@ -10,6 +10,10 @@ class Api::V1::QuestsController < Api::V1::BaseController
   def show
     respond_with(@quest, serializer: QuestSerializer)
   end
+
+  def create
+    @quest = Quest.create(quest_params.merge(user: current_user)) 
+  end
  
   protected
 
