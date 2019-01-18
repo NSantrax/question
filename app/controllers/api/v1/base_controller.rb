@@ -1,6 +1,9 @@
 class Api::V1::BaseController < ApplicationController
-
+  protect_from_forgery with: :exception
   before_action :doorkeeper_authorize!
+  protect_from_forgery with: :exception
+
+  
   respond_to :json
 
 

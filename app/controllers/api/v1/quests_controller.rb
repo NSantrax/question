@@ -1,5 +1,5 @@
 class Api::V1::QuestsController < Api::V1::BaseController
-
+  skip_before_action :verify_authenticity_token, :only => [:create]
   before_action :load_quest, only: :show
 
   def index
@@ -12,7 +12,13 @@ class Api::V1::QuestsController < Api::V1::BaseController
   end
 
   def create
-    @quest = Quest.create(quest_params.merge(user: current_user)) 
+    @quest = Quest.new(quest_params.merge(user: current_user))
+    if @quest.save
+      respond_with @quest
+    else
+      render @quest.error.message.to_json
+    end
+
   end
  
   protected

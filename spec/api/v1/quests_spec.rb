@@ -15,7 +15,7 @@ describe 'Quest API' do
     end
 
     context 'authorized' do
-      
+      skip_before_action :verify_authenticity_token,
       let!(:user) { create(:user) }
       let!(:access_token) { create(:access_token, resource_owner_id: user.id )}
       let!(:quests) { create_list(:quest, 2, user: user) }
