@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   self.responder = ApplicationResponder
   respond_to :html
   include Pundit
-  protect_from_forgery with: :exception
+  #protect_from_forgery with: :exception
 
   rescue_from CanCan::AccessDenied do |exeption|
     redirect_to root_url, alert: exeption.message

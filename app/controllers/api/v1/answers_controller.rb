@@ -1,6 +1,6 @@
 class Api::V1::AnswersController < Api::V1::BaseController
 
-  before_action :load_quest, only: [:create, :index]
+  before_action :load_quest, only: [ :index]
   before_action :load_answer, only: [:show, :update]
   def index
     @answers = @quest.answers
@@ -12,6 +12,7 @@ class Api::V1::AnswersController < Api::V1::BaseController
   end
 
   def create
+    @quest = Quest.find(params[id])
     @answer = @quest.answers.build(answer_params.merge(user: current_user)) 
   end
  
