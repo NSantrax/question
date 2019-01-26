@@ -4,13 +4,13 @@ class ApplicationController < ActionController::Base
   self.responder = ApplicationResponder
   respond_to :html
   include Pundit
-  #protect_from_forgery with: :exception
+  #protect_from_forgery with: :null_session, only: [:create]
 
   rescue_from CanCan::AccessDenied do |exeption|
     redirect_to root_url, alert: exeption.message
   end
-
-   rescue_from Exception, :with => :handle_exception
+  
+  rescue_from Exception, :with => :handle_exception
 
   def handle_exception
     flash[:error] = error.message
