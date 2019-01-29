@@ -68,7 +68,8 @@ describe 'Answer API', js: true do
       end
       context 'comments' do
         it 'included in answer object' do
-          expect(response.body).to match('comment')
+          @comments = JSON.parse(response.body)['comments']
+          expect(@comments.first).to eql({"id"=>comment.id, "body"=>comment.body})
         end
         %w(id body ).each do |attr|
           it "contains #{attr}" do        

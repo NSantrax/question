@@ -78,8 +78,9 @@ describe 'Quest API' do
 
       context 'answers' do
         it 'included in quest object' do
-          p response.body
-          expect(response.body).to match('answers')
+          #p response.body
+          @answers = JSON.parse(response.body)['answers']
+          expect(@answers.first).to eql({"id"=>answer.id, "body"=>answer.body})
         end
         %w(id body).each do |attr|
           it "contains #{attr}" do
@@ -90,7 +91,8 @@ describe 'Quest API' do
       end
       context 'comments' do
         it 'included in quest object' do
-          expect(response.body).to match('comments')
+          @comments = JSON.parse(response.body)['comments']
+          expect(@comments.first).to eql({"id"=>comment.id, "body"=>comment.body})
         end
         %w(id body).each do |attr|
           it "contains #{attr}" do        
@@ -116,7 +118,6 @@ describe 'Quest API' do
       
       let!(:user) { create(:user, admin: true) }
       let!(:access_token) { create(:access_token, resource_owner_id: user.id) }
-      
     
       context 'with valid attribut', js: true do
         
