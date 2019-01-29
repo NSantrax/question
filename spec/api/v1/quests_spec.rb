@@ -2,17 +2,8 @@ require 'rails_helper'
 
 describe 'Quest API' do
   describe 'GET /index' do
-    context 'unauthorized' do
-      it 'returns 401 status if there is no access_token' do
-        get '/api/v1/quests', headers: {format: :json}
-        expect(response.status).to eq 401
-      end
-
-      it 'returns 401 status if access_token is invalid' do
-        get '/api/v1/quests', headers: {format: :json, access_token: '1234567'}
-        expect(response.status).to eq 401
-      end
-    end
+    let(:api_path){"/api/v1/quests.json"}
+    it_behaves_like 'API Autenticable'
 
     context 'authorized', js: true do
       
@@ -25,9 +16,8 @@ describe 'Quest API' do
 
       before { get "/api/v1/quests.json?access_token=#{access_token.token}"}
      
-      it 'returns 200 status' do
-        expect(response).to be_success
-      end
+      it_behaves_like 'API Response Success'
+      
       it 'returns list of quests' do
         expect(response.body).to have_json_size(2)
       end
@@ -41,15 +31,8 @@ describe 'Quest API' do
   end
   describe 'GET /show' do
     context 'unauthorized', js: true do
-      it 'returns 401 status if there is no access_token' do
-        get '/api/v1/quests/1.json'
-        expect(response.status).to eq 401
-      end
-
-      it 'returns 401 status if access_token is invalid' do
-        get "/api/v1/quests/1.json?access_token='1234567'"
-        expect(response.status).to eq 401
-      end
+      let(:api_path){"/api/v1/quests/1.json"}
+      it_behaves_like 'API Autenticable'
     end
 
     context 'authorized', js: true do
@@ -63,9 +46,7 @@ describe 'Quest API' do
 
       before { get "/api/v1/quests/1.json?access_token=#{access_token.token}"  }
      
-      it 'returns 200 status' do
-        expect(response).to be_success
-      end
+      it_behaves_like 'API Response Success'
       
       %w(id title body created_at updated_at).each do |attr|
         it "quests object contains #{attr}" do        

@@ -9,23 +9,15 @@ describe 'Answer API', js: true do
   let!(:comment) { create(:comment, commentable: answer, user: user)}  
   describe 'GET /index' do
     context 'unauthorized' do
-      it 'returns 401 status if there is no access_token' do
-        get "/api/v1/quests/1/answers.json"
-        expect(response.status).to eq 401
-      end
-
-      it 'returns 401 status if access_token is invalid' do
-        get "/api/v1/quests/1/answers.json?access_token='1234567'"
-        expect(response.status).to eq 401
-      end
+      let(:api_path){"/api/v1/quests/1/answers.json"}
+      it_behaves_like 'API Autenticable'
     end
 
     context 'authorized' do
       before { get "/api/v1/quests/1/answers.json?access_token=#{access_token.token}" }
      
-      it 'returns 200 status' do
-        expect(response).to be_success
-      end
+      it_behaves_like 'API Response Success'
+
       it 'returns list of answers' do
         expect(response.body).to have_json_size(2)
       end
@@ -39,24 +31,15 @@ describe 'Answer API', js: true do
   end
   describe 'GET /show' do
     context 'unauthorized' do
-      it 'returns 401 status if there is no access_token' do
-        get "/api/v1/answers/1.json"
-        expect(response.status).to eq 401
-      end
-
-      it 'returns 401 status if access_token is invalid' do
-        get "/api/v1/answers/1.json?access_token='1234567'"
-        expect(response.status).to eq 401
-      end
+      let(:api_path){"/api/v1/answers/1.json"}
+      it_behaves_like 'API Autenticable'
     end
 
     context 'authorized' do
 
       before { get "/api/v1/answers/1.json?access_token=#{access_token.token}" }
      
-      it 'returns 200 status' do
-        expect(response).to be_success
-      end
+      it_behaves_like 'API Response Success'
       
       %w(id body created_at updated_at).each do |attr|
         it "answers object contains #{attr}" do        
@@ -82,6 +65,8 @@ describe 'Answer API', js: true do
   describe 'POST /create', js: true do
   
     context 'unauthorized' do
+      let(:api_path){"/api/v1/quests/1/answers.json"}
+      it_behaves_like 'API Autenticable POST'
       it 'returns 401 status if there is no access_token' do
         post "/api/v1/quests/1/answers.json"
         expect(response.status).to eq 401

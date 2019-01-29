@@ -12,4 +12,5 @@
 
 # Запустить в отдельном терминале: rackup private_pub.ru -s thin -E production
 
-
+# УРОК 16
+# Вынести общие спеки из API
