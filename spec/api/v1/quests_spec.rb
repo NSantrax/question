@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Quest API' do
   describe 'GET /index' do
     let(:api_path){"/api/v1/quests.json"}
-    it_behaves_like 'API Autenticable'
+    it_behaves_like 'API Authorization'
 
     context 'authorized', js: true do
       
@@ -17,7 +17,7 @@ describe 'Quest API' do
       before { get "/api/v1/quests.json?access_token=#{access_token.token}"}
      
       it_behaves_like 'API Response Success'
-      
+
       it 'returns list of quests' do
         expect(response.body).to have_json_size(2)
       end
@@ -32,7 +32,7 @@ describe 'Quest API' do
   describe 'GET /show' do
     context 'unauthorized', js: true do
       let(:api_path){"/api/v1/quests/1.json"}
-      it_behaves_like 'API Autenticable'
+      it_behaves_like 'API Authorization'
     end
 
     context 'authorized', js: true do
@@ -58,6 +58,10 @@ describe 'Quest API' do
       end
 
       context 'answers' do
+        let(:objects) { 'answers' }
+        let(:object) { answer }
+        
+        it_behaves_like 'API Objectation'
         it 'included in quest object' do
           #p response.body
           @answers = JSON.parse(response.body)['answers']
@@ -71,48 +75,37 @@ describe 'Quest API' do
         end
       end
       context 'comments' do
-        it 'included in quest object' do
-          @comments = JSON.parse(response.body)['comments']
-          expect(@comments.first).to eql({"id"=>comment.id, "body"=>comment.body})
-        end
-        %w(id body).each do |attr|
-          it "contains #{attr}" do        
-            expect(response.body).to match(comment.send(attr.to_sym).to_json)
-          end
-        end
+        let(:objects) { 'comments' }
+        let(:object) { comment }
+        it_behaves_like 'API Objectation'
+       
       end
     end
   end
   describe 'POST /create', js: true do
     context 'unauthorized' do
-      it 'returns 401 status if there is no access_token' do
-        post "/api/v1/quests.json?access_token"
-        expect(response.status).to eq 401
-      end
-
-      it 'returns 401 status if access_token is invalid' do
-        post "/api/v1/quests.json?access_token='1234567'"
-      end
+      let(:api_path){"/api/v1/quests.json"}
+      it_behaves_like 'API Authorization Post'
     end
 
     context 'authorized' do
       
       let!(:user) { create(:user, admin: true) }
       let!(:access_token) { create(:access_token, resource_owner_id: user.id) }
-    
+      let(:api_path){"/api/v1/quests.json?access_token=#{access_token.token}"}
       context 'with valid attribut', js: true do
         
         it 'returns 200 status' do
-          post "/api/v1/quests.json?access_token=#{access_token.token}", params: { quest: { title: 'test@mail.ru', body: 'abc123'} } 
-          expect(response).to be_success
+          post api_path, params: { quest: { title: 'test@mail.ru', body: 'abc123'} } 
+          expect(response).to be_successful
         end
         it 'save a new quest in database' do
-          expect{post "/api/v1/quests.json?access_token=#{access_token.token}", params: { quest: { title: 'test@mail.ru', body: 'abc123'} } }.to change(Quest, :count).by(1)
+          expect{post api_path, params: { quest: { title: 'test@mail.ru', body: 'abc123'} } }.to change(Quest, :count).by(1)
         end  
       end 
       context 'with invalid attribut',js:true do
         it 'not save the quest' do
-          expect {post "/api/v1/quests.json?access_token=#{access_token.token}", params: { quest: { title: nil, body: 'abc123'} } }.to_not change(Quest, :count)
+          expect {post api_path, params: { quest: { title: nil, body: 'abc123'} } }.to_not change(Quest, :count)
         end
       end
     end

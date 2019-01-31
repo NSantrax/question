@@ -10,7 +10,7 @@ describe 'Answer API', js: true do
   describe 'GET /index' do
     context 'unauthorized' do
       let(:api_path){"/api/v1/quests/1/answers.json"}
-      it_behaves_like 'API Autenticable'
+      it_behaves_like 'API Authorization'
     end
 
     context 'authorized' do
@@ -32,7 +32,7 @@ describe 'Answer API', js: true do
   describe 'GET /show' do
     context 'unauthorized' do
       let(:api_path){"/api/v1/answers/1.json"}
-      it_behaves_like 'API Autenticable'
+      it_behaves_like 'API Authorization'
     end
 
     context 'authorized' do
@@ -50,15 +50,9 @@ describe 'Answer API', js: true do
           expect(response.body).to match(answer.quest.title.to_json)
       end
       context 'comments' do
-        it 'included in answer object' do
-          @comments = JSON.parse(response.body)['comments']
-          expect(@comments.first).to eql({"id"=>comment.id, "body"=>comment.body})
-        end
-        %w(id body ).each do |attr|
-          it "contains #{attr}" do        
-            expect(response.body).to match(comment.send(attr.to_sym).to_json)
-          end
-        end
+        let(:objects) { 'comments' }
+        let(:object) { comment }
+        it_behaves_like 'API Objectation'
       end
     end
   end
@@ -66,16 +60,7 @@ describe 'Answer API', js: true do
   
     context 'unauthorized' do
       let(:api_path){"/api/v1/quests/1/answers.json"}
-      it_behaves_like 'API Autenticable POST'
-      it 'returns 401 status if there is no access_token' do
-        post "/api/v1/quests/1/answers.json"
-        expect(response.status).to eq 401
-      end
-
-      it 'returns 401 status if access_token is invalid' do
-        post "/api/v1/quests/1/answers.json?access_token='1234567'"
-        expect(response.status).to eq 401
-      end
+      it_behaves_like 'API Authorization Post'
     end
 
     context 'authorized' do
@@ -83,21 +68,20 @@ describe 'Answer API', js: true do
       let!(:user) { create(:user, admin: true) }
       let!(:access_token) { create(:access_token, resource_owner_id: user.id) }
       let!(:quest) { create(:quest, user: user) }
-
+      let(:api_path){"/api/v1/quests/1/answers.json?access_token=#{access_token.token}"}
       context 'with valid attribut' do
-        
         it 'returns 200 status' do
-          post "/api/v1/quests/1/answers.json?access_token=#{access_token.token}", params: { answer: { body: 'abc123'} } 
-          expect(response).to be_success
+          post api_path, params: { answer: { body: 'abc123'} } 
+          expect(response).to be_successful
         end
         it 'save a new answer in database' do
-          expect {post "/api/v1/quests/1/answers.json?access_token=#{access_token.token}", params: {answer: { body: '12345'}}}.to change(Answer, :count).by(1)
+          expect {post api_path, params: {answer: { body: '12345'}}}.to change(Answer, :count).by(1)
         end
     
       end 
       context 'with invalid attribut' do
         it 'not save the answer' do
-          expect {post "/api/v1/quests/1/answers.json?access_token=#{access_token.token}", params:{answer: { body: nil}}}.to_not change(Answer, :count)
+          expect {post api_path, params:{answer: { body: nil}}}.to_not change(Answer, :count)
         end
       end
     end
