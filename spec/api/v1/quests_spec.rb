@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Quest API' do
   describe 'GET /index' do
     let(:api_path){"/api/v1/quests.json"}
-    it_behaves_like 'API Authorization'
+    it_behaves_like 'API Autenticable'
 
     context 'authorized', js: true do
       
@@ -15,7 +15,6 @@ describe 'Quest API' do
       let!(:comment) { create(:comment, commentable: quest, user: user)}
 
       before { get "/api/v1/quests.json?access_token=#{access_token.token}"}
-     
       it_behaves_like 'API Response Success'
 
       it 'returns list of quests' do
@@ -32,7 +31,7 @@ describe 'Quest API' do
   describe 'GET /show' do
     context 'unauthorized', js: true do
       let(:api_path){"/api/v1/quests/1.json"}
-      it_behaves_like 'API Authorization'
+      it_behaves_like 'API Autenticable'
     end
 
     context 'authorized', js: true do
@@ -45,7 +44,6 @@ describe 'Quest API' do
       let!(:comment) { create(:comment, commentable: quest, user: user)}
 
       before { get "/api/v1/quests/1.json?access_token=#{access_token.token}"  }
-     
       it_behaves_like 'API Response Success'
       
       %w(id title body created_at updated_at).each do |attr|
@@ -60,32 +58,19 @@ describe 'Quest API' do
       context 'answers' do
         let(:objects) { 'answers' }
         let(:object) { answer }
-        
-        it_behaves_like 'API Objectation'
-        it 'included in quest object' do
-          #p response.body
-          @answers = JSON.parse(response.body)['answers']
-          expect(@answers.first).to eql({"id"=>answer.id, "body"=>answer.body})
-        end
-        %w(id body).each do |attr|
-          it "contains #{attr}" do
-                  
-            expect(response.body).to match(answer.send(attr.to_sym).to_json)
-          end
-        end
+        it_behaves_like 'API Objectable'
       end
       context 'comments' do
         let(:objects) { 'comments' }
         let(:object) { comment }
-        it_behaves_like 'API Objectation'
-       
+        it_behaves_like 'API Objectable'
       end
     end
   end
   describe 'POST /create', js: true do
     context 'unauthorized' do
       let(:api_path){"/api/v1/quests.json"}
-      it_behaves_like 'API Authorization Post'
+      it_behaves_like 'API Autenticable Post'
     end
 
     context 'authorized' do
@@ -93,8 +78,7 @@ describe 'Quest API' do
       let!(:user) { create(:user, admin: true) }
       let!(:access_token) { create(:access_token, resource_owner_id: user.id) }
       let(:api_path){"/api/v1/quests.json?access_token=#{access_token.token}"}
-      context 'with valid attribut', js: true do
-        
+      context 'with valid attribut', js: true do    
         it 'returns 200 status' do
           post api_path, params: { quest: { title: 'test@mail.ru', body: 'abc123'} } 
           expect(response).to be_successful

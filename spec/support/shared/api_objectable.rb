@@ -1,4 +1,4 @@
-shared_examples_for 'API Objectation' do
+shared_examples_for 'API Objectable' do
   context "included in " do
     
     it  "object" do

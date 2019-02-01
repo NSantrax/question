@@ -10,7 +10,7 @@ describe 'Answer API', js: true do
   describe 'GET /index' do
     context 'unauthorized' do
       let(:api_path){"/api/v1/quests/1/answers.json"}
-      it_behaves_like 'API Authorization'
+      it_behaves_like 'API Autenticable'
     end
 
     context 'authorized' do
@@ -32,7 +32,7 @@ describe 'Answer API', js: true do
   describe 'GET /show' do
     context 'unauthorized' do
       let(:api_path){"/api/v1/answers/1.json"}
-      it_behaves_like 'API Authorization'
+      it_behaves_like 'API Autenticable'
     end
 
     context 'authorized' do
@@ -52,7 +52,7 @@ describe 'Answer API', js: true do
       context 'comments' do
         let(:objects) { 'comments' }
         let(:object) { comment }
-        it_behaves_like 'API Objectation'
+        it_behaves_like 'API Objectable'
       end
     end
   end
@@ -60,7 +60,7 @@ describe 'Answer API', js: true do
   
     context 'unauthorized' do
       let(:api_path){"/api/v1/quests/1/answers.json"}
-      it_behaves_like 'API Authorization Post'
+      it_behaves_like 'API Autenticable Post'
     end
 
     context 'authorized' do
