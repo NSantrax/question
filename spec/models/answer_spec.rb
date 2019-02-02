@@ -2,6 +2,9 @@ require 'rails_helper'
 
 
 RSpec.describe Answer, :type => :model do
+  let!(:user) { create(:user) }
+  let!(:quest) { create(:quest, user: user)}
+  subject {build(:answer, quest: quest, user: user)}
   describe 'validations' do
     it {should belong_to :quest}
     it {should have_many :attachments}
@@ -13,5 +16,16 @@ RSpec.describe Answer, :type => :model do
   end
   describe 'associations' do
     it { should belong_to(:quest) }
+  end
+  describe 'publish answer' do
+    it 'should publish answer after creating' do
+      expect(subject).to receive(:publish_answer)
+      subject.save!
+    end
+    it 'should not publish answer after updating' do
+      subject.save!
+      expect(subject).to_not receive(:publish_answer)
+      subject.update(body: '12345')
+    end
   end
 end
