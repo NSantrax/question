@@ -1,7 +1,7 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!,  only: [:new, :create, :edit, :update, :destroy]
   before_action :load_answer, only: [:update, :destroy]
-  after_action :publish_answer, only: :create
+  #after_action :publish_answer, only: :create
   
   #authorize_resource
   respond_to :js, only: :create
@@ -35,15 +35,11 @@ class AnswersController < ApplicationController
 
   end
  
-  private
+  protected
   
   def load_answer
     @answer = Answer.find(params[:id])
     @quest = @answer.quest
-  end
-  
-  def publish_answer
-    PrivatePub.publish_to "/quests/#{@quest.id}/answers", answer: @answer.to_json if @answer.valid?
   end
 
   def answer_params
