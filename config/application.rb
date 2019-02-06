@@ -29,6 +29,7 @@ module Question
          request_spec:false,
          controller_spec:true 
       g. fixture_replacement :factory_bot, dir: 'spec/factories'
-    end        
+    end
+    config.active_job.queue_adapter = :sidekiq        
   end
 end

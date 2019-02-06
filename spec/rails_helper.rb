@@ -3,7 +3,10 @@ require 'spec_helper'
 require 'capybara/email/rspec'
 require 'cancan/matchers'
 require 'pundit/rspec'
+require 'sidekiq/testing'
+#require 'sidetiq'
 
+Sidekiq::Testing.inline!
 
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
