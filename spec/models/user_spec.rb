@@ -64,5 +64,9 @@ RSpec.describe User, :type => :model do
       users.each { |user| expect(DailyMailer).to receive(:digest).with(user).and_call_original}
       User.daily_mailer_digest
     end
+    xit 'should send daily daigest all questions created in the last 24 hours' do
+      
+      User.daily_mailer_digest
+    end
   end
 end
