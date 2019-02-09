@@ -26,10 +26,4 @@ class User < ApplicationRecord
     user.authorizations.create(provider: auth.provider, uid: auth.uid)
     user
   end
-
-  def self.daily_mailer_digest
-    find_each.each do |user|
-      DailyMailer.digest(user)
-    end
-  end
 end

@@ -24,8 +24,6 @@ class Answer < ApplicationRecord
   end
 
   def send_notification
-    
-    @user = self.quest.user
-    AnswersMailer.new_answer(@user, self).deliver_now
+    AnswerNewWorker.perform_async(self)
   end
 end
