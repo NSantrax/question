@@ -7,6 +7,9 @@ class User < ApplicationRecord
   has_many :quests
   has_many :authorizations
   has_many :comments
+  has_many :subscriptions
+  has_many :posts, through: :subscriptions
+
   
   def self.find_for_oauth(auth)
     authorization = Authorization.where(provider: auth.provider, uid: auth.uid.to_s).first

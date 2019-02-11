@@ -6,6 +6,8 @@ class Quest < ApplicationRecord
   belongs_to :user
   accepts_nested_attributes_for :attachments
   accepts_nested_attributes_for :comments
+  has_many :subscriptions, foreign_key: :post_id
+  has_many :users, through: :subscriptions
   
   validates :title, :body, presence: true
   validates_length_of :title, :within => 3..250
