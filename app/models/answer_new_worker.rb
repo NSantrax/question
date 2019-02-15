@@ -4,5 +4,6 @@ class AnswerNewWorker
   def perform(answer)
     @answer = answer
     AnswersMailer.new_answer(@answer)
+    AnswersMailer.subscribers(@answer)
   end
 end

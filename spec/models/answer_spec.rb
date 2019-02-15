@@ -28,4 +28,16 @@ RSpec.describe Answer, :type => :model do
       subject.update(body: '12345')
     end
   end
+
+  describe 'send_notification' do
+    it 'should send_notification after creating' do
+      expect(subject).to receive(:send_notification)
+      subject.save!
+    end
+    it 'should not send_notification after updating' do
+      subject.save!
+      expect(subject).to_not receive(:send_notification)
+      subject.update(body: '12345')
+    end
+  end 
 end
