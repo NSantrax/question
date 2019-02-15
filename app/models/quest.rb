@@ -6,8 +6,8 @@ class Quest < ApplicationRecord
   belongs_to :user
   accepts_nested_attributes_for :attachments
   accepts_nested_attributes_for :comments
-  has_many :subscriptions, foreign_key: :post_id
-  has_many :users, through: :subscriptions
+  has_many :subscriptions, foreign_key: :post_id, dependent: :destroy
+  has_many :users, through: :subscriptions, dependent: :destroy
   
   validates :title, :body, presence: true
   validates_length_of :title, :within => 3..250
@@ -15,5 +15,5 @@ class Quest < ApplicationRecord
 
   #after_create :send_author
 
-
+  
 end
