@@ -9,7 +9,7 @@ class DailyMailer < ApplicationMailer
   def digest(user)
     @user = user
     @greeting = "Dear User!"
-    @quests = Quest.where('created_at > ? AND created_at <= ?', Time.zone.now - 1.day, Time.zone.now).pluck(:title, :body)
+    @quests = Quest.where('created_at > ? AND created_at <= ?', Time.zone.now - 1.day, Time.zone.now).take
 
     mail(to: @user.email, subject: "New questions")
   end
