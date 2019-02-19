@@ -7,6 +7,9 @@ class User < ApplicationRecord
   has_many :quests
   has_many :authorizations
   has_many :comments
+  has_many :subscriptions, dependent: :destroy
+  has_many :posts, through: :subscriptions, dependent: :destroy
+
   
   def self.find_for_oauth(auth)
     authorization = Authorization.where(provider: auth.provider, uid: auth.uid.to_s).first
@@ -26,4 +29,5 @@ class User < ApplicationRecord
     user.authorizations.create(provider: auth.provider, uid: auth.uid)
     user
   end
+  
 end

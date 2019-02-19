@@ -56,6 +56,18 @@ RSpec.describe User, :type => :model do
         end
         
       end
-    end  
+    end
+  end
+  describe '.send_daily_daigest' do
+    let(:users) {create_list(:user, 2)}
+    let(:user) { users.first } 
+    it 'should send daily daigest to all users' do
+      users.each { |user| expect(DailyMailer).to receive(:digest).with(user).and_call_original}
+      DailyDigestWorker.perform_async
+    end
+    xit 'should send daily daigest all questions created in the last 24 hours' do
+      
+      #User.daily_mailer_digest
+    end
   end
 end

@@ -1,6 +1,13 @@
 p= @quest.title
 p= @quest.body
-
+-if @quest.user == current_user
+  -unless @quest.subscriptions.where(user: current_user).present? 
+    p= button_to 'Subscribe', action: :subscribe, method: :post
+  -else
+    <h5> You subscribed </h5>
+    = button_to 'Unsubscribe', action: :unsubscribe, method: :post
+  
+ 
 -if policy(@quest).update?
   p= link_to 'Edit', edit_quest_path(@quest)
 -if policy(@quest).destroy?

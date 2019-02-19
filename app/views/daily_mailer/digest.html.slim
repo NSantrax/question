@@ -1,0 +1,9 @@
+h1 Daily#digest
+p = @greeting
+if @quests.any
+  p = "Over the past day added questions:"
+  - @quests.each do |q|
+    p= q.title
+    p= q.body
+  else
+    p="Over the past day noadded questions"

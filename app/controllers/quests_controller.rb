@@ -1,6 +1,6 @@
 class QuestsController < ApplicationController
  before_action :authenticate_user!,  only: [:new, :create, :edit, :update, :destroy]
- before_action :load_quest, only: [:show, :edit, :update, :destroy]
+ before_action :load_quest, only: [:show, :edit, :update, :destroy, :subscribe, :unsubscribe]
 
  before_action :build_answer, only: :show
  
@@ -42,6 +42,21 @@ class QuestsController < ApplicationController
   def destroy
     authorize @quest
     respond_with(@quest.destroy)
+  end
+
+  def subscribe
+    unless @quest.subscriptions.where(user: current_user).present?
+      @quest.subscriptions.create(user: current_user)
+        #flash[:success] = "User subscribed"
+      redirect_to @quest
+    end
+  end
+
+  def unsubscribe
+    @quest.subscriptions.find_by(user: current_user).delete
+        #flash[:success] = "User subscribed"
+    redirect_to @quest
+    
   end
  
   private
