@@ -30,3 +30,5 @@
 /.ruby-gemset
 
 config/database.yml
+config/*.sphinx.conf
+db/sphinx
