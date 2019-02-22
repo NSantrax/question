@@ -1,4 +1,5 @@
 class Answer < ApplicationRecord
+  include PgSearch
   
   belongs_to :quest
   belongs_to :user

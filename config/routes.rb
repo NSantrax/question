@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   use_doorkeeper
   devise_for :users, controllers: {omniauth_callbacks: 'omniauth_callbacks'}
   
-
+  
   concern :commentable do
 
     resources :comments
@@ -29,6 +29,8 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  get 'results', to: 'results#index', as: 'results'
   
   root 'quests#index'
 end

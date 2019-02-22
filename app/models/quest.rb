@@ -1,4 +1,6 @@
 class Quest < ApplicationRecord
+  include PgSearch
+  pg_search_scope :search_everywhere, against: [:title, :body]
   
   has_many :answers, dependent: :destroy
   has_many :attachments, as: :attachmentable
