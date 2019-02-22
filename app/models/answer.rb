@@ -1,12 +1,14 @@
 class Answer < ApplicationRecord
   include PgSearch
-  
+ 
+  after_save :reindex
+
   belongs_to :quest
   belongs_to :user
   has_many :attachments, as: :attachmentable
   has_many :comments, as: :commentable
   
-  
+  multisearchable against: :body
   accepts_nested_attributes_for :attachments
 
 
@@ -26,5 +28,9 @@ class Answer < ApplicationRecord
 
   def send_notification
     AnswerNewWorker.perform_async(self)
+  end
+
+  def reindex
+    PgSearch::Multisearch.rebuild(Answer)
   end
 end

@@ -1,6 +1,7 @@
 <h3>Результаты поиска по запросу <em><%= params[:query]%></em></h3>
-<% @search_results.each do |result| %>
-  <h4><%= link_to result.title, result %></h4>
-  <div><%= result.body.html_safe %></div>
+<%= link_to 'Назад', quests_path %>
+<% @search_results.each do |pg_search_document| %>
+  <h4><%= link_to pg_search_document.searchable, pg_search_document.searchable %></h4>
+  <div><%= pg_search_document.content.html_safe %></div>
   <hr>
 <% end %>
