@@ -1,0 +1,7 @@
+<h3>Результаты поиска по запросу <em><%= params[:query]%></em></h3>
+<%= link_to 'Назад', quests_path %>
+<% @search_results.each do |pg_search_document| %>
+  <h4><%= link_to pg_search_document.searchable, (pg_search_document.searchable if pg_search_document.searchable_type != "User") %></h4>
+  <div><%= pg_search_document.content.html_safe %></div>
+  <hr>
+<% end %>
