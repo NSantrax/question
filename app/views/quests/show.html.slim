@@ -1,16 +1,18 @@
-<h1> Question </h1>
- = link_to 'Назад', quests_path
- = flash[:error]  
-.quest  
-  = render 'quest'
+- cache quest do  
+  <h1> Question </h1>
+  = link_to 'Назад', quests_path
+  = flash[:error]
 
-  .quest-errors
+  .quest  
+    = render 'quest'
+
+    .quest-errors
 
      
-.answers data={quest_id: "#{@quest.id}"}
-  = render 'answers'
+    .answers data={quest_id: "#{@quest.id}"}
+      = render 'answers'
 
--if policy(Answer).create?
+
   = form_for [@quest, @answer], remote: true do |f|
     = f.label :body, 'You answer'
     .answer-errors

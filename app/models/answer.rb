@@ -3,7 +3,7 @@ class Answer < ApplicationRecord
  
   after_save :reindex
 
-  belongs_to :quest
+  belongs_to :quest, touch: true
   belongs_to :user
   has_many :attachments, as: :attachmentable
   has_many :comments, as: :commentable

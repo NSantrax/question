@@ -4,7 +4,7 @@ class Comment < ApplicationRecord
   after_save :reindex
 
   belongs_to :user
-  belongs_to :commentable, polymorphic: true
+  belongs_to :commentable, polymorphic: true, touch: true
   
   multisearchable against: :body
 

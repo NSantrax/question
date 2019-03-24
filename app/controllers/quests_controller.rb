@@ -12,6 +12,8 @@ class QuestsController < ApplicationController
  end
  
  def show
+  #fresh_when last_modified: @quest.updated_at
+
   respond_with @quest
  end
  
