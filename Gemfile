@@ -58,6 +58,7 @@ gem 'sidekiq'
 gem 'sidetiq'
 gem 'sinatra', '>= 1.3.0', require: nil
 gem 'pg_search'
+gem 'redis-rails'
 
 
 group :development, :test do
