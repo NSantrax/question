@@ -3,8 +3,10 @@ class AnswersController < ApplicationController
   before_action :load_answer, only: [:update, :destroy]
   after_action :publish_answer, only: :create
   
-  respond_to :js, :json, only: [:create, :update]
- 
+
+  respond_to :js, only: :create
+  respond_to :json, only: :update
+
  
   def create
     @quest = Quest.find(params[:quest_id])
@@ -12,8 +14,9 @@ class AnswersController < ApplicationController
   end
   
   def update
-     @answer.update(answer_params)
-     respond_to do |format|
+    @answer.update(answer_params)
+    respond_to do |format|
+
       if @answer.save
         #format.html { render partial: 'quests/answers', layout: false }
         format.json { render json: @answer }
@@ -25,9 +28,9 @@ class AnswersController < ApplicationController
   end
 
   def destroy
-   
-    @answer.destroy
-    redirect_to quest_path(@quest), notice: 'Ответ удален'
+
+   respond_with(@answer.destroy, :location => quest_path(@quest), notice: 'Ответ удален')
+
   end
  
   private
@@ -45,3 +48,4 @@ class AnswersController < ApplicationController
   	params.require(:answer).permit(:body, attachments_attributes: [:id, :file, :_destroy], comments_attributes: [:id, :body, :_destroy])
   end
 end
+

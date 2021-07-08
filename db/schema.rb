@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_28_141043) do
+
+ActiveRecord::Schema.define(version: 2018_11_18_190426) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,9 +36,20 @@ ActiveRecord::Schema.define(version: 2018_10_28_141043) do
     t.index ["attachmentable_type"], name: "index_attachments_on_attachmentable_type"
   end
 
+  create_table "authorizations", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "provider"
+    t.string "uid"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_authorizations_on_user_id"
+  end
+
   create_table "comments", force: :cascade do |t|
     t.string "body"
-    t.string "commentable_id"
+
+    t.integer "commentable_id"
+
     t.string "commentable_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -70,4 +82,5 @@ ActiveRecord::Schema.define(version: 2018_10_28_141043) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "authorizations", "users"
 end

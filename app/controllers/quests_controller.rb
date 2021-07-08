@@ -1,38 +1,30 @@
 class QuestsController < ApplicationController
  before_action :authenticate_user!,  only: [:new, :create, :edit, :update, :destroy]
  before_action :load_quest, only: [:show, :edit, :update, :destroy]
- before_action :quest_new, only: [:index, :new]
- before_action :answer_build, only: [:show]
- after_action :publish_quest, only: :create
+
+ before_action :build_answer, only: :show
  
- respond_to :html
- respond_to :js, only: [:create, :update]
+ respond_to :js, only: :update
  
- 
- def index  
-   respond_with(@quests=Quest.all)   
+ def index
+   respond_with(@quests=Quest.all)
  end
  
- def show  
-   respond_with @quest
+ def show
+  respond_with @quest
  end
  
  def new
-   respond_with @quest
+   respond_with(@quest = Quest.new)
+
  end
  
  def create
    @quest = Quest.new(quest_params.merge(user: current_user))
-   respond_to do |format|
-     if @quest.save
-       format.js do
-         PrivatePub.publish_to "/quests", quest: @quest.to_json
-         render nothing: true
-       end
-     else
-       format.js
-     end
-   end
+
+   @quest.save 
+   respond_with @quest
+
  end
  
   def edit
@@ -40,15 +32,9 @@ class QuestsController < ApplicationController
   
   def update
     @quest.update(quest_params)
-    respond_to do |format|
-      if @quest.save
-        #format.html { render partial: 'quests/quests', layout: false }
-        format.json { render json: @quest }
-      else
-       # format.html { render text: @answer.errors.full_messages.join("\n"), status: :unprocessable_entity }
-        format.json { render json: @quest.errors.full_messages, status: :unprocessable_entity }
-      end
-    end
+
+    respond_with @quest  
+
   end
 
   def destroy
@@ -61,13 +47,11 @@ class QuestsController < ApplicationController
     @quest = Quest.find(params[:id])
   end
   
-  def quest_new
-    @quest = Quest.new
-  end
-  
-  def answer_build
+
+  def build_answer
     @answer=@quest.answers.build
   end
+  
 
   def quest_params
   	params.require(:quest).permit(:title, :body, :user, attachments_attributes: [:id, :file, :_destroy])
